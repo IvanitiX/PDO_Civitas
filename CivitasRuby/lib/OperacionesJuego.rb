@@ -1,5 +1,8 @@
 # encoding:utf-8
 
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 module Civitas  
   module OperacionesJuego    
     AVANZAR = :avanzar    

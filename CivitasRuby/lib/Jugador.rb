@@ -2,6 +2,9 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 module Civitas
   class Jugador
     
@@ -176,16 +179,16 @@ module Civitas
     end
     
     def vender(ip)
-      if (@encarcelado)
-        return false
-      else
+      if (!@encarcelado)
         if (existeLaPropiedad(ip))
-          @propiedades[ip].vender(self)
-          return true
-        else
-          return false
+          if (@propiedades[ip].vender(self))
+            @propiedades.delete_at(ip)
+            @diario.ocurre_evento("Se ha vendido la propiedad")
+            return true
+          end
         end
       end
+      return false
     end
     
     def existeLaPropiedad(ip)

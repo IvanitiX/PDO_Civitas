@@ -1,5 +1,8 @@
 # encoding:utf-8
 
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 require_relative 'diario'
 require_relative "Sorpresa"
 module Civitas

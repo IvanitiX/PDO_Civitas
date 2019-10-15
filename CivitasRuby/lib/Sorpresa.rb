@@ -3,6 +3,9 @@
 # and open the template in the editor.
 #encoding UTF-8
 
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 module Civitas
   class Sorpresa
 

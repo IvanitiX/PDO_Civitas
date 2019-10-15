@@ -2,6 +2,9 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 require_relative "CivitasJuego"
 require_relative "Dado"
 require_relative "TipoSorpresa"
@@ -17,7 +20,7 @@ module Civitas
     def self.main
       
       @jugadores = Array.new
-      @jugadores << "Iván"
+      @jugadores << "Ivan"
       @jugadores << "Mumo"
       
       @juego = CivitasJuego.new(@jugadores)
@@ -35,7 +38,7 @@ module Civitas
 
       
       @juego.actualizarInfo
-      @juego.pasarTurno
+      #@juego.pasarTurno
       @juego.actualizarInfo
       
       @juego.getJugadorActual.modificarSaldo(-10000)

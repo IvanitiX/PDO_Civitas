@@ -1,3 +1,6 @@
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 module Civitas
   module EstadosJuego
     

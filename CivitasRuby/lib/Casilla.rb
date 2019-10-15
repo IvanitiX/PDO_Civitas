@@ -1,6 +1,10 @@
 # To change this license header, choose License Headers in Project Properties.
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
+
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 require_relative "titulo_propiedad"
 require_relative "Sorpresa"
 

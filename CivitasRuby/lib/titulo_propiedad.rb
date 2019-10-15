@@ -2,6 +2,9 @@
 # To change this template file, choose Tools | Templates
 # and open the template in the editor.
 
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 class TituloPropiedad
   @@factorInteresesHipoteca = 1.1
   
@@ -138,9 +141,15 @@ class TituloPropiedad
   end
   
   def vender(jugador)
-    jugador.modificarSaldo(@precioVenta)
-    derruirCasas(@numCasas, jugador)
-    @numHoteles = 0
+    
+    if (esEsteElPropietario(jugador) and !@hipotecado )
+      jugador.recibe(@precioVenta)
+      
+      derruirCasas(@numCasas, jugador)
+      @numHoteles = 0
+      @propietario = nil
+      return true
+    end
     return false
   end
   

@@ -1,5 +1,8 @@
 # encoding: utf-8
 
+#Author: Miguel Muñoz Molina
+#Author: Iván Valero Rodríguez
+
 require_relative "Dado"
 require_relative "TipoSorpresa"
 require_relative "TipoCasilla"
