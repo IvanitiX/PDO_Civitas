@@ -167,6 +167,39 @@ public class CivitasJuego {
     }
     
     
+    private void avanzaJugador(){
+        Jugador jugadorActual = getJugadorActual();
+        int posicionActual = jugadorActual.getNumCasillaActual() ;
+        int tirada = dado.tirar() ;
+        int posicionNueva = tablero.nuevaPosicion(posicionActual, tirada) ;
+        Casilla casilla = tablero.getCasilla(posicionNueva) ;
+        this.contabilizarPasosPorSalida(jugadorActual);
+        jugadorActual.moverACasilla(posicionNueva) ;
+        casilla.recibeJugador(indiceJugadorActual, jugadores);
+        this.contabilizarPasosPorSalida(jugadorActual);
+    }
     
+    public OperacionesJuego siguientePaso(){
+        Jugador jugadorActual = getJugadorActual();
+        OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual, estado) ;
+        if(operacion == OperacionesJuego.PASAR_TURNO){
+            this.pasarTurno();
+            this.siguientePasoCompletado(operacion);
+        }
+        else if (operacion == OperacionesJuego.AVANZAR){
+            this.avanzaJugador();
+            this.siguientePasoCompletado(operacion);
+        }
+        return operacion ;
+    }
     
+    public boolean comprar(){
+        Jugador jugadorActual = getJugadorActual() ;
+        int numCasillaActual = jugadorActual.getNumCasillaActual() ;
+        Casilla casilla = tablero.getCasilla(numCasillaActual) ;
+        TituloPropiedad titulo = casilla.getTitulo() ;
+        boolean res = jugadorActual.comprar(titulo) ;
+        return res ;
+    }
+
 }

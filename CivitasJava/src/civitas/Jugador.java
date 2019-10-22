@@ -235,7 +235,12 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     boolean puedoEdificarHotel(TituloPropiedad titulo){
-        return titulo.getNumHoteles() < HotelesMax && puedoGastar(3*titulo.getPrecioEdificar()) ;
+        boolean puedoEdificarHotel = false ;
+        float precio = titulo.getPrecioEdificar();
+        if (this.puedoGastar(precio) && titulo.getNumHoteles() < getHotelesMax() 
+                && titulo.getNumCasas() >= this.getCasasPorHotel())
+            puedoEdificarHotel = true ;
+        return puedoEdificarHotel;
     }
     
     int cantidadCasasHoteles(){
@@ -247,20 +252,93 @@ public class Jugador implements Comparable<Jugador> {
     }
     
      boolean construirCasa(int ip){
-        throw new UnsupportedOperationException("Sin implemetar") ;
+        boolean result = false ;
+        if (this.isEncarcelado()){
+            return result ;
+        }
+        if(existeLaPropiedad(ip)){
+            TituloPropiedad propiedad = propiedades.get(ip) ;
+            boolean puedoEdificarCasa = this.puedoEdificarCasa(propiedad) ;
+            if (puedoEdificarCasa){
+                result = propiedad.construirCasa(this) ;
+                if (result){
+                    diario.ocurreEvento("El jugador " + getNombre() + " construye casa en la propiedad " + ip);
+                }
+            }
+        }
+        return result ;
     }
     
      boolean construirHotel(int ip){
-        throw new UnsupportedOperationException("Sin implemetar") ;
+        boolean result = false ;
+        if (this.isEncarcelado()){
+            return result ;
+        }
+        if(existeLaPropiedad(ip)){
+            TituloPropiedad propiedad = propiedades.get(ip) ;
+            boolean puedoEdificarHotel = this.puedoEdificarHotel(propiedad) ;
+            if (puedoEdificarHotel){
+                result = propiedad.construirHotel(this);
+                int casasPorHotel = this.getCasasPorHotel() ;
+                propiedad.derruirCasas(casasPorHotel, this) ;
+            }
+            diario.ocurreEvento("El jugador " + getNombre() + " construye hotel en la propiedad " + ip);
+        }
+        return result ;
     }
      
      boolean hipotecar(int ip){
-        throw new UnsupportedOperationException("Sin implemetar") ;
+        boolean result = false ;
+        if (this.isEncarcelado()){
+            return result ;
+        }
+        if(existeLaPropiedad(ip)){
+            TituloPropiedad propiedad = propiedades.get(ip) ;
+            result = propiedad.hipotecar(this) ;
+        }
+        if(result){
+            diario.ocurreEvento("El jugador " + getNombre() + " hipoteca la propiedad " + ip);
+        }
+        return result ;
     }
      
      boolean cancelarHipoteca(int ip){
-        throw new UnsupportedOperationException("Sin implemetar") ;
+        boolean result = false ;
+        if (this.isEncarcelado()){
+            return result ;
+        }
+        if(existeLaPropiedad(ip)){
+            TituloPropiedad propiedad = propiedades.get(ip) ;
+            float cantidad = propiedad.getImporteCancelarHipoteca() ;
+            boolean puedoGastar = this.puedoGastar(cantidad) ;
+            if (puedoGastar){
+                result = propiedad.cancelarHipoteca(this) ;
+                if(result){
+                    diario.ocurreEvento("El jugador " + getNombre() + " cancela la hipoteca de la propiedad " + ip);
+                }
+            }
+        }
+        return result ;
     }
     
+     boolean comprar (TituloPropiedad titulo){
+         boolean result = false;
+         if (this.isEncarcelado()){
+            return result ;
+        }
+        if (this.getPuedeComprar()){
+            float precio = titulo.getPrecioCompra() ;
+            if (this.puedoGastar(precio)){
+                result = titulo.Comprar(this) ;
+                if(result){
+                    propiedades.add(titulo) ;
+                    diario.ocurreEvento("El jugador " + getNombre() + " compra la propiedad " + titulo.toString());
+                }
+                puedeComprar = false ;
+            }
+            
+        }
+        return result;
+     }
     
 }

@@ -82,7 +82,7 @@ public class Casilla {
         return ( actual >= 0 && actual < todos.size() );
     }
     
-    public String to_s(){
+    public String toString(){
         String s = "Casilla \n Nombre: " + nombre + "\n Tipo: " + tipo;
         if(tipo==TipoCasilla.CALLE){
             s += "\n" + titulo.toString() ;
@@ -99,16 +99,62 @@ public class Casilla {
         return s ;
     }
     
-    void recibeJugador_impuesto(int actual, ArrayList<Jugador> todos){
+    void recibeJugador(int actual, ArrayList<Jugador> todos){
+        switch (tipo){
+            case CALLE:
+                this.recibeJugador_calle(actual, todos);
+            break ;
+            case IMPUESTO:
+                this.recibeJugador_impuesto(actual, todos);
+            break ;
+            case JUEZ:
+                this.recibeJugador_juez(actual, todos);
+            break ;
+            case SORPRESA:
+                this.recibeJugador_sorpresa(actual, todos);
+            break ;
+            default:
+                this.informe(actual, todos);
+            break;
+        }
+    }
+    
+    private void recibeJugador_impuesto(int actual, ArrayList<Jugador> todos){
         if(jugadorCorrecto(actual,todos)){
             todos.get(actual).pagaImpuesto(importe) ;
         }
     }
     
-    void recibeJugador_juez(int actual, ArrayList<Jugador> todos){
+    private void recibeJugador_juez(int actual, ArrayList<Jugador> todos){
         if(jugadorCorrecto(actual,todos)){
             todos.get(actual).encarcelar(carcel) ;
         }
+    }
+    
+    private void recibeJugador_calle(int actual, ArrayList<Jugador> todos){
+        if(jugadorCorrecto(actual,todos)){
+           this.informe(actual, todos);
+           //Jugador jugador = new Jugador (todos.get(actual)) ;
+           Jugador jugador = todos.get(actual) ;
+           if(!titulo.tienePropietario()){
+               jugador.puedeComprarCasilla() ;
+           }
+           else{
+               titulo.tramitarAlquiler(jugador);
+           }
+        }
+    }
+    
+    private void recibeJugador_sorpresa(int actual, ArrayList<Jugador> todos){
+        if(jugadorCorrecto(actual,todos)){
+           sorpresa = mazo.siguiente() ;
+           this.informe(actual, todos);
+           sorpresa.aplicarAJugador(actual, todos);
+        }
+    }
+
+    public TituloPropiedad getTitulo() {
+        return titulo;
     }
     
     

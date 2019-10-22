@@ -18,8 +18,8 @@ public class TituloPropiedad {
     private boolean hipotecado ;
     private int numCasas;
     private int numHoteles;
-    private int precioCompra;
-    private int precioEdificar;
+    private float precioCompra;
+    private float precioEdificar;
     private Jugador propietario ;
     
 
@@ -122,10 +122,10 @@ public class TituloPropiedad {
     boolean construirHotel(Jugador jugador){
         boolean construido = false ;
         if (esEsteElPropietario(jugador)){
-            if(jugador.paga(3*precioEdificar)){
-                numHoteles++;
-                construido = true ;
-            }
+            jugador.paga(3*getPrecioEdificar());
+            numHoteles++;
+            construido = true ;
+            
         }
         return construido ;
     }
@@ -133,10 +133,9 @@ public class TituloPropiedad {
     boolean Comprar(Jugador jugador){
         boolean comprado = false ;
         if (!tienePropietario()){
-            if(jugador.paga(precioCompra)){
-                
-                comprado = true ;
-            }
+            propietario = jugador ;
+            comprado = true ;
+            jugador.paga(precioCompra) ;
         }
         return comprado ;
     }
@@ -161,11 +160,11 @@ public class TituloPropiedad {
         return numHoteles;
     }
 
-    int getPrecioCompra() {
+    float getPrecioCompra() {
         return precioCompra;
     }
 
-    int getPrecioEdificar() {
+    float getPrecioEdificar() {
         return precioEdificar;
     }
 
