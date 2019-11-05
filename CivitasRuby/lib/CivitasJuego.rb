@@ -169,6 +169,7 @@ module Civitas
       return res
     end
     
+    public
     def siguientePaso()
        jugadorActual = getJugadorActual()
         OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual, estado) 

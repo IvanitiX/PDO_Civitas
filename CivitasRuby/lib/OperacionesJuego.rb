@@ -5,10 +5,10 @@
 
 module Civitas  
   module OperacionesJuego    
-    AVANZAR = :avanzar    
-    COMPRAR = :comprar    
-    GESTIONAR = :gestionar    
-    SALIR_CARCEL = :salir_carcel    
-    PASAR_TURNO = :pasar_turno  
+    AVANZAR = :Avanzar    
+    COMPRAR = :Comprar    
+    GESTIONAR = :Gestionar    
+    SALIR_CARCEL = :Salir_de_la_Carcel    
+    PASAR_TURNO = :Pasar_el_Turno  
     end
   end
