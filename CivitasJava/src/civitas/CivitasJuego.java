@@ -83,11 +83,11 @@ public class CivitasJuego {
         return jugadores;
     }
     
-    Casilla getCasillaActual(){
+    public Casilla getCasillaActual(){
         return tablero.getCasilla(jugadores.get(indiceJugadorActual).getNumCasillaActual()) ;
     }
     
-    Jugador getJugadorActual(){
+    public Jugador getJugadorActual(){
         return jugadores.get(indiceJugadorActual) ;
     }
     
