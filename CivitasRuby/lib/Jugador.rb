@@ -211,13 +211,91 @@ module Civitas
       return edificios
     end
     
-    #def construirCasa(ip)
+    def construirCasa(ip)
+      result = false
+      if(@encarcelado)
+        return result
+      end
+      if(existeLaPropiedad(ip))
+        propiedad = @propiedades[ip]
+        puedoEdificarCasa = puedoEdificarCasa(propiedad)
+        if(puedoEdificarCasa)
+          result = propiedad.construirCasa(self)
+          if(result)
+            @diario.ocurre_evento("El jugador  #{@nombre}  construye casa en la propiedad #{ip}")
+          end
+        end
+      end
+      return result
+    end
     
-    #def construirHotel(ip)
+    def construirHotel(ip)
+      result = false
+      if(@encarcelado)
+        return result
+      end
+      if(existeLaPropiedad(ip))
+      propiedad = @propiedades[ip]
+        puedoEdificarHotel = puedoEdificarCasa(propiedad)
+        if(puedoEdificarHotel)
+          result = propiedad.construirHotel(self)
+          casasPorHotel = @@CasasPorHotel
+          @propiedad.derruirCasas(casasPorHotel, self)
+          if(result)
+            @diario.ocurre_evento("El jugador  #{@nombre}  construye hotel en la propiedad #{ip}")
+          end
+        end
+      end
+      return result
+    end
      
-    #def hipotecar(ip)
+    def hipotecar(ip)      
+      result = false
+      if(@encarcelado)
+        return result
+      end
+      if(existeLaPropiedad(ip))
+          propiedad = @propiedades[ip]
+          result = propiedad.construirCasa(self)
+          if(result)
+            @diario.ocurre_evento("El jugador  #{@nombre}  hipoteca la propiedad #{ip}")
+          end
+        end
+        return result
+      end
+
      
-    #def cancelarHipoteca(ip)
+    def cancelarHipoteca(ip)
+      propiedad = @propiedades[ip]
+      cantidad = propiedad.getImporteCancelarHipoteca
+      puedoGastar = puedoGastar(cantidad)
+      if(puedoGastar)
+        result = propiedad.cancelarHipoteca(self)
+        if(result)
+          @diario.ocurreEvento("El jugador #{@nombre} cancela la hipoteca de la propiedad #{ip}")
+        end
+      end
+      return result
+    end
+    
+    def comprar (titulo)
+      result = false
+      if(@encarcelado)
+        return result
+      end
+      if(@puedeComprar)
+        precio = titulo.precioCompra
+        if (puedoGastar(precio))
+          result = titulo.comprar(self)
+          if(result)
+            @propiedades << titulo
+            @diario.ocurre_evento("El jugador #{@nombre} compra la propiedad #{titulo.to_s}")
+          end
+          @puedeComprar = false
+        end
+      end
+      return result
+    end
 
     
     private
