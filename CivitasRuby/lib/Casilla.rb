@@ -93,6 +93,41 @@ module Civitas
       end
     end
 
+    def recibeJugador(actual,todos)
+        case tipo
+            when TipoCasilla::CALLE
+                recibeJugador_calle(actual, todos);
+            when TipoCasilla::CALLE
+                recibeJugador_impuesto(actual, todos);
+            when TipoCasilla::CALLE
+                recibeJugador_juez(actual, todos);
+            when TipoCasilla::CALLE
+                recibeJugador_sorpresa(actual, todos);
+            else
+                informe(actual, todos);
+        end
+    end
+    
+    def recibeJugador_calle(actual,todos)
+      if(self.jugadorCorrecto(actual,todos))
+           informe(actual, todos)
+           Jugador jugador = todos.get(actual)
+           if(!@titulo.tienePropietario())
+               jugador.puedeComprarCasilla() 
+           else
+               @titulo.tramitarAlquiler(jugador)
+           end
+      end
+    end
+    
+    def recibeJugador_sorpresa(actual,todos)
+        if(self.jugadorCorrecto(actual,todos))
+           @sorpresa = @mazo.siguiente() 
+           informe(actual, todos)
+           @sorpresa.aplicarAJugador(actual, todos)
+        end
+     end
+    
       public :to_s
   end
 end

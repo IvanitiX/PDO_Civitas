@@ -148,6 +148,42 @@ module Civitas
       end
     end
     
+    def avanzaJugador()
+      jugadorActual = getJugadorActual()
+      posicionActual = jugadorActual.numeroCasillaActual
+      tirada = @dado.tirar
+      posicionNueva = @tablero.nuevaPosicion(posicionActual, tirada)
+      casilla = @tablero.getCasilla(posicionNueva)
+      contabilizarPasosPorSalida(jugadorActual)
+      jugadorActual.moverACasilla(posicionNueva)
+      casilla.recibeJugador(@indiceJugadorActual, @jugadores)
+      contabilizarPasosPorSalida(jugadorActual)
+    end
+    
+    def comprar()
+      jugadorActual = getJugadorActual()
+      numCasillaActual = jugadorActual.numCasillaActual
+      casilla = @tablero.getCasilla(numCasillaActual)
+      titulo = casilla.titulo
+      res = jugadorActual.comprar(titulo)
+      return res
+    end
+    
+    public
+    def siguientePaso()
+       jugadorActual = getJugadorActual()
+        OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual, estado) 
+        if(operacion == OperacionesJuego.PASAR_TURNO)
+            pasarTurno();
+            siguientePasoCompletado(operacion);
+        else if (operacion == OperacionesJuego.AVANZAR)
+            avanzaJugador();
+            siguientePasoCompletado(operacion);
+          end
+        end
+        return operacion
+    end
+    
   end
   
 end

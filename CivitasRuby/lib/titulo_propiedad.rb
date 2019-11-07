@@ -108,6 +108,13 @@ class TituloPropiedad
   end
 
   #def actualizarPropietarioPorConversion(jugador)
+  
+  def vender(jugador)
+    jugador.modificarSaldo(getprecioVenta())
+    derruirCasas(@numCasas,jugador)
+    @numHoteles = 0
+    return false
+  end
 
   private
   
