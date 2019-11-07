@@ -95,6 +95,9 @@ public class Casilla {
         }
         if(tipo==TipoCasilla.SORPRESA){
             s+= "\n La sorpresa que saldrá es : " + sorpresa.toString() ;
+        } 
+        else{
+            s+= "\nLa carcel";
         }
         return s ;
     }

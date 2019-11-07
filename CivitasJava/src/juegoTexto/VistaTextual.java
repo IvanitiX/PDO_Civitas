@@ -87,14 +87,20 @@ class VistaTextual {
   }
 
   void gestionar () {
-    int opcion = menu ("¿Que numero de gestion inmobiliaria deseas hacer?",
-    new ArrayList<> (Arrays.asList("VENDER", "HIPOTECAR", "CANCELAR_HIPOTECA", "CONTRUIR_CASA", "CONSTRUIR_HOTEL", "TERMINAR")));
+    int opcion1 = menu ("¿Que numero de gestion inmobiliaria deseas hacer?",
+    new ArrayList<> (Arrays.asList("VENDER", "HIPOTECAR", "CANCELAR_HIPOTECA", "CONSTRUIR_CASA", "CONSTRUIR_HOTEL", "TERMINAR")));
     
-    int ip=0;
-    //int ip = juegoModel.getJugadorActual().
+    ArrayList<TituloPropiedad> propiedades = juegoModel.getJugadorActual().getPropiedades();
+    ArrayList<String> nombres = new ArrayList<String>();
     
-    iGestion = opcion;
-    iPropiedad = ip;
+    for (TituloPropiedad p:propiedades){
+        nombres.add(p.toString());
+    }   
+    
+    int opcion2 = menu("¿Que propiedad quieres gestionar?",nombres);
+    
+    iGestion = opcion1;
+    iPropiedad = opcion2;
   }
   
   public int getGestion(){
@@ -125,6 +131,7 @@ class VistaTextual {
   
   void actualizarVista(){
       System.out.println( juegoModel.getJugadorActual().toString() );
+      System.out.println(separador);
       System.out.println( juegoModel.getCasillaActual().toString() );
   } 
 }

@@ -13,7 +13,7 @@ public class OperacionInmobiliaria {
     private int numPropiedad;
     private GestionesInmobiliarias gestion;
     
-    OperacionInmobiliaria( GestionesInmobiliarias gest, int ip){
+    public OperacionInmobiliaria( GestionesInmobiliarias gest, int ip){
         numPropiedad = ip;
         gestion = gest;
     }

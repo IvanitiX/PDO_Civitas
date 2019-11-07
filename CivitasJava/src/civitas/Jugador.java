@@ -340,5 +340,9 @@ public class Jugador implements Comparable<Jugador> {
         }
         return result;
      }
+     
+    public ArrayList<TituloPropiedad> getPropiedades(){
+        return propiedades;
+    }
     
 }
