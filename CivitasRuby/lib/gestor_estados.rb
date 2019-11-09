@@ -1,6 +1,6 @@
 require_relative 'diario'
 require_relative "OperacionesJuego"
-
+require_relative "estados_juego"
 module Civitas
   class Gestor_estados
 
@@ -13,40 +13,40 @@ module Civitas
 
       case estado
 
-      when Estados_juego::INICIO_TURNO
+      when EstadosJuego::INICIO_TURNO
         if (jugador.encarcelado)
-          op = Operaciones_juego::SALIR_CARCEL
+          op = OperacionesJuego::SALIR_CARCEL
         else
-          op = Operaciones_juego::AVANZAR
+          op = OperacionesJuego::AVANZAR
         end
 
-      when Estados_juego::DESPUES_CARCEL
-        op = Operaciones_juego::PASAR_TURNO
+      when EstadosJuego::DESPUES_CARCEL
+        op = OperacionesJuego::PASAR_TURNO
 
-      when Estados_juego::DESPUES_AVANZAR
+      when EstadosJuego::DESPUES_AVANZAR
         if (jugador.encarcelado)
-          op = Operaciones_juego::PASAR_TURNO
+          op = OperacionesJuego::PASAR_TURNO
         else
-          if (jugador.puede_comprar)
-            op = Operaciones_juego::COMPRAR
+          if (jugador.puedeComprar)
+            op = OperacionesJuego::COMPRAR
           else
-            if (jugador.tiene_algo_que_gestionar)
-              op = Operaciones_juego::GESTIONAR
+            if (jugador.tieneAlgoQueGestionar)
+              op = OperacionesJuego::GESTIONAR
             else
-              op = Operaciones_juego::PASAR_TURNO
+              op = OperacionesJuego::PASAR_TURNO
             end
           end
         end
 
-      when Estados_juego::DESPUES_COMPRAR
-        if (jugador.tiene_algo_que_gestionar)
-          op = Operaciones_juego::GESTIONAR
+      when EstadosJuego::DESPUES_COMPRAR
+        if (jugador.tieneAlgoQueGestionar)
+          op = OperacionesJuego::GESTIONAR
         else
-          op = Operaciones_juego::PASAR_TURNO
+          op = OperacionesJuego::PASAR_TURNO
         end
 
-      when Estados_juego::DESPUES_GESTIONAR
-        op = Operaciones_juego::PASAR_TURNO
+      when EstadosJuego::DESPUES_GESTIONAR
+        op = OperacionesJuego::PASAR_TURNO
       end
 
       return op
@@ -59,51 +59,51 @@ module Civitas
 
       case estado
 
-      when Estados_juego::INICIO_TURNO
-        if (operacion==Operaciones_juego::SALIR_CARCEL)
-          siguiente = Estados_juego::DESPUES_CARCEL
+      when EstadosJuego::INICIO_TURNO
+        if (operacion==OperacionesJuego::SALIR_CARCEL)
+          siguiente = EstadosJuego::DESPUES_CARCEL
         else
-          if (operacion==Operaciones_juego::AVANZAR)
-            siguiente = Estados_juego::DESPUES_AVANZAR
+          if (operacion==OperacionesJuego::AVANZAR)
+            siguiente = EstadosJuego::DESPUES_AVANZAR
           end
         end
 
 
-      when Estados_juego::DESPUES_CARCEL
-        if (operacion==Operaciones_juego::PASAR_TURNO)
-          siguiente = Estados_juego::INICIO_TURNO
+      when EstadosJuego::DESPUES_CARCEL
+        if (operacion==OperacionesJuego::PASAR_TURNO)
+          siguiente = EstadosJuego::INICIO_TURNO
         end
 
-      when Estados_juego::DESPUES_AVANZAR
+      when EstadosJuego::DESPUES_AVANZAR
         case operacion
-          when Operaciones_juego::PASAR_TURNO
-            siguiente = Estados_juego::INICIO_TURNO
+          when OperacionesJuego::PASAR_TURNO
+            siguiente = EstadosJuego::INICIO_TURNO
           when
-            Operaciones_juego::COMPRAR
-              siguiente = Estados_juego::DESPUES_COMPRAR
-          when Operaciones_juego::GESTIONAR
-              siguiente = Estados_juego::DESPUES_GESTIONAR
+            OperacionesJuego::COMPRAR
+              siguiente = EstadosJuego::DESPUES_COMPRAR
+          when OperacionesJuego::GESTIONAR
+              siguiente = EstadosJuego::DESPUES_GESTIONAR
         end
 
 
-      when Estados_juego::DESPUES_COMPRAR
+      when EstadosJuego::DESPUES_COMPRAR
         #if (jugador.tiene_algo_que_gestionar)
-        if (operacion==Operaciones_juego::GESTIONAR)
-          siguiente = Estados_juego::DESPUES_GESTIONAR
+        if (operacion==OperacionesJuego::GESTIONAR)
+          siguiente = EstadosJuego::DESPUES_GESTIONAR
         #  end
         else
-          if (operacion==Operaciones_juego::PASAR_TURNO)
-            siguiente = Estados_juego::INICIO_TURNO
+          if (operacion==OperacionesJuego::PASAR_TURNO)
+            siguiente = EstadosJuego::INICIO_TURNO
           end
         end
 
-      when Estados_juego::DESPUES_GESTIONAR
-        if (operacion==Operaciones_juego::PASAR_TURNO)
-          siguiente = Estados_juego::INICIO_TURNO
+      when EstadosJuego::DESPUES_GESTIONAR
+        if (operacion==OperacionesJuego::PASAR_TURNO)
+          siguiente = EstadosJuego::INICIO_TURNO
         end
       end
 
-      Diario.instance.ocurre_evento("De: "+estado.to_s+ " con "+operacion.to_s+ " sale: "+siguiente.to_s)
+      Diario.instance.ocurre_evento("De: #{estado.to_s}  con #{operacion.to_s}  sale: #{siguiente.to_s}")
 
       return siguiente
     end

@@ -45,7 +45,7 @@ module Civitas
     
     def informe (actual, todos)
         if (jugadorCorrecto(actual, todos))
-            @diario.ocurreEvento("Se ha aplicado una sorpresa de tipo" + @tipo + " a" + todos[actual].getNombre)
+            @diario.ocurre_evento("Se ha aplicado una sorpresa de tipo #{@tipo} a #{todos[actual].nombre}")
         end
     end
     
@@ -53,17 +53,17 @@ module Civitas
         if (jugadorCorrecto(actual, todos))
             informe(actual, todos)
 
-            if (tipo == TipoSorpresa::IRCARCEL)
+            if (@tipo == TipoSorpresa::IRCARCEL)
               aplicarAJugador_irCarcel(actual,todos)
-            elsif (tipo == TipoSorpesa::IRCASILLA)
+            elsif (@tipo == TipoSorpresa::IRCASILLA)
               aplicarAJugador_irACasilla(actual,todos)
-            elsif (tipo == TipoSorpresa::PAGARCOBRAR)
+            elsif (@tipo == TipoSorpresa::PAGARCOBRAR)
               aplicarAJugador_pagarCobrar(actual,todos)
-            elsif (tipo == TipoSorpresa::SALIRCARCEL)
+            elsif (@tipo == TipoSorpresa::SALIRCARCEL)
               aplicarAJugador_salirCarcel(actual,todos)
-            elsif (tipo == TipoSorpresa::PORCASAHOTEL)
+            elsif (@tipo == TipoSorpresa::PORCASAHOTEL)
                aplicarAJugador_porCasaHotel(actual,todos)
-            elsif (tipo == TipoSorpresa::PORJUGADOR)
+            elsif (@tipo == TipoSorpresa::PORJUGADOR)
                aplicarAJugador_porJugador(actual,todos)
             end
         end
@@ -95,12 +95,12 @@ module Civitas
     
     def aplicarAJugador_irCarcel (actual, todos )
         
-        todos[actual].encarcelar( @tablero.getCarcel )
+        todos[actual].encarcelar( @tablero.numCasillaCarcel )
     end
     
     def aplicarAJugador_irACasilla (actual, todos )
                 
-        numCasilla = todos[actual].getNumCasillaActual
+        numCasilla = todos[actual].numCasillaActual
         
         numTirada = @tablero.calcularTirada(numCasilla, @valor)
         
@@ -108,11 +108,11 @@ module Civitas
         
         todos[actual].moverACasilla(nuevaPosicion)
         
-        numCasilla = todos[actual].getNumCasillaActual
+        numCasilla = todos[actual].numCasillaActual
         
         casilla = @tablero.getCasilla(numCasilla);
         
-        #casilla.recibeJugador(actual,todos);
+        casilla.recibeJugador(actual,todos);
     end
     
     def aplicarAJugador_pagarCobrar (actual, todos )           
@@ -128,7 +128,7 @@ module Civitas
         end
         
         if (!alguien)
-          todos[actual].obtenerSalvoconducto(self.sorpresaSalirCarcel(TipoSorpresa::SALIRCARCEL, mazo))
+          todos[actual].obtenerSalvoconducto(Sorpresa::sorpresaSalirCarcel(TipoSorpresa::SALIRCARCEL, @mazo))
           salirDelMazo()
         end
     end
@@ -139,10 +139,10 @@ module Civitas
     end
     
     def aplicarAJugador_porJugador (actual, todos )
-        s = self.sorpresaResto(TipoSorpresa::PAGARCOBRAR, -@valor, "Se dan #{@valor} al jugador que la use")
-        j = self.sorpresaResto(TipoSorpresa::PAGARCOBRAR, 3*@valor, "Se recibe #{3*@valor} del resto de jugadores")
+        s = Sorpresa::sorpresaResto(TipoSorpresa::PAGARCOBRAR, -@valor, "Se dan #{@valor} al jugador que la use")
+        j = Sorpresa::sorpresaResto(TipoSorpresa::PAGARCOBRAR, (todos.size - 1)*@valor, "Se recibe #{(todos.size - 1)*@valor} del resto de jugadores")
         
-        for i in todos do
+        for i in (0..todos.size) do
           if (i != actual)
             s.aplicarAJugador(i, todos)
           else

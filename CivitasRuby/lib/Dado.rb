@@ -21,7 +21,7 @@ module Civitas
     
     def tirar
       numerosDado = %w{ 1 2 3 4 5 6 }
-      tirada = 1
+      tirada = 3
       if(!@debug)
         tirada = rand(numerosDado.length) + 1
       end

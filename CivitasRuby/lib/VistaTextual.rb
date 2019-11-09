@@ -1,10 +1,13 @@
 #encoding:utf-8
-require_relative 'OperacionesJuego'
+require_relative "OperacionesJuego"
+require_relative "Respuestas"
+require_relative "GestionesInmobiliarias"
+require_relative "SalidasCarcel"
 require 'io/console'
 
 module Civitas
 
-  class Vista_textual
+  class VistaTextual
 
     def mostrar_estado(estado)
       puts estado
@@ -13,7 +16,8 @@ module Civitas
     
     def pausa
       print "Pulsa una tecla"
-      STDIN.getch
+      #STDIN.getch
+      gets
       print "\n"
     end
 
@@ -49,18 +53,18 @@ module Civitas
       puts titulo
       index = 0
       lista.each { |l|
-        puts tab+index.to_s+"-"+l
+        puts "#{tab} #{index.to_s} - #{l}"
         index += 1
       }
 
       opcion = lee_entero(lista.length,
-                          "\n"+tab+"Elige una opción: ",
-                          tab+"Valor erróneo")
+                          "\n #{tab} Elige una opción: ",
+                          "#{tab} Valor erróneo")
       return opcion
     end
     
     def salirCarcel
-      listaRespuestas = [SalirCarcel::PAGANDO, SalirCarcel::TIRANDO]
+      listaRespuestas = [SalidasCarcel::PAGANDO, SalidasCarcel::TIRANDO]
       opcion = menu("¿Cómo quieres intentar salir de la cárcel? (Selecciona un número)",
       listaRespuestas)
       return listaRespuestas[opcion]
@@ -76,13 +80,32 @@ module Civitas
     end
 
     def gestionar
-      listaRespuestas = [OperacionesJuego::VENDER, OperacionesJuego::HIPOTECAR, 
-        OperacionesJuego::CANCELAR_HIPOTECA, OperacionesJuego::CONSTRUIR_CASA, 
-        OperacionesJuego::CONSTRUIR_HOTEL,OperacionesJuego::TERMINAR]
-      opcion = menu("¿Que gestión inmobiliaria deseas hacer? (Selecciona un número)", 
+      listaRespuestas = [GestionesInmobiliarias::VENDER, GestionesInmobiliarias::HIPOTECAR, 
+        GestionesInmobiliarias::CANCELAR_HIPOTECA, GestionesInmobiliarias::CONSTRUIR_CASA, 
+        GestionesInmobiliarias::CONSTRUIR_HOTEL,GestionesInmobiliarias::TERMINAR]
+      opcion1 = menu("¿Que gestión inmobiliaria deseas hacer? (Selecciona un número)", 
       listaRespuestas)
-      @iGestion = opcion
-      @iPropiedad = ip
+      
+      propiedades = @juegoModel.getJugadorActual.propiedades
+      nombres = Array.new 
+      
+      for p in propiedades
+        nombres << p.to_s
+      end
+      
+      
+      if (opcion1 != 5 && @juegoModel.getJugadorActual.propiedades.size != 0)
+        opcion2 = menu("¿Que propiedad quiere gestionar? (Selecciona un número)",
+        nombres)
+        @iGestion = opcion1
+        @iPropiedad = opcion2
+      else
+        @iGestion = 5
+      end
+      
+      if (@juegoModel.getJugadorActual.propiedades.size == 0)
+        puts "[!] No es por nada, pero... ¿no crees que no tiene sentido que puedas gestionar algo que no existe? (Error 404)"
+      end
     end
 
     def getGestion

@@ -5,6 +5,8 @@
 #Author: Miguel Muñoz Molina
 #Author: Iván Valero Rodríguez
 
+require_relative "Jugador"
+
 class TituloPropiedad
   @@factorInteresesHipoteca = 1.1
   
@@ -27,7 +29,7 @@ class TituloPropiedad
   end
   
   def getImporteCancelarHipoteca
-    return getImporteHipoteca() * factorInteresesHipoteca ;
+    return getImporteHipoteca() * @@factorInteresesHipoteca ;
   end
   
   def cancelarHipoteca(jugador)
@@ -43,7 +45,7 @@ class TituloPropiedad
   
   def hipotecar(jugador)
     hecho = false
-    if(!@hipotecado and esEsteElPropietario(jugador))
+    if(@hipotecado == false && esEsteElPropietario(jugador))
       jugador.recibe(getImporteHipoteca)
       @hipotecado = true 
       hecho = true 
@@ -85,19 +87,19 @@ class TituloPropiedad
   def construirHotel(jugador)
     construido = false
     if (esEsteElPropietario(jugador))
-      if(jugador.paga(3*@precioEdificar))
+        jugador.paga(3*@precioEdificar)
         @numHoteles = @numHoteles + 1
         construido = true
-      end
     end
     return construido
   end
 
-  def Comprar(jugador)
+  def comprar(jugador)
     comprado = false
     if (!tienePropietario)
       if(jugador.paga(@precioCompra))
         comprado = true
+        @propietario = jugador
       end
     end
     return comprado
@@ -110,9 +112,15 @@ class TituloPropiedad
   #def actualizarPropietarioPorConversion(jugador)
   
   def vender(jugador)
-    jugador.modificarSaldo(getprecioVenta())
-    derruirCasas(@numCasas,jugador)
-    @numHoteles = 0
+    
+    if (esEsteElPropietario(jugador) and !@hipotecado )
+      jugador.recibe(getPrecioVenta)
+      
+      derruirCasas(@numCasas, jugador)
+      @numHoteles = 0
+      @propietario = nil
+      return true
+    end
     return false
   end
 
@@ -145,19 +153,6 @@ class TituloPropiedad
   
   def getImporteHipoteca
     return (@hipotecaBase*(1+(@numCasas*0.5)+(@numHoteles*2.5)))
-  end
-  
-  def vender(jugador)
-    
-    if (esEsteElPropietario(jugador) and !@hipotecado )
-      jugador.recibe(@precioVenta)
-      
-      derruirCasas(@numCasas, jugador)
-      @numHoteles = 0
-      @propietario = nil
-      return true
-    end
-    return false
   end
   
   def to_s

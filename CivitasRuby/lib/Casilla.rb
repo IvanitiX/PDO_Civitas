@@ -7,6 +7,7 @@
 
 require_relative "titulo_propiedad"
 require_relative "Sorpresa"
+require_relative "TipoCasilla"
 
 module Civitas
   class Casilla
@@ -49,7 +50,7 @@ module Civitas
     
     def informe (actual, todos)
       if (jugadorCorrecto(actual, todos))
-        @diario.ocurreEvento(todos[actual].nombre + "ha llegado a la casilla " + to_s )
+        @diario.ocurre_evento(todos[actual].nombre + "ha llegado a la casilla " + to_s )
       end
     end
     
@@ -69,7 +70,32 @@ module Civitas
           s ="#{s} \n La sorpresa que saldra es :  #{@sorpresa.to_s}"
         end
         return s
+    end   
+    
+    def recibeJugador(actual,todos)
+        case tipo
+            when TipoCasilla::CALLE
+                recibeJugador_calle(actual, todos);
+            when TipoCasilla::IMPUESTO
+                recibeJugador_impuesto(actual, todos);
+            when TipoCasilla::JUEZ
+                recibeJugador_juez(actual, todos);
+            when TipoCasilla::SORPRESA
+                recibeJugador_sorpresa(actual, todos);
+            else
+                informe(actual, todos);
+        end
     end
+    
+    def getTituloPropiedad
+      if (@tipo == TipoCasilla::CALLE)
+        return @titulo
+      else
+        return nil
+      end
+    end
+    
+    private
     
     def recibeJugador_impuesto(actual, todos)
       if(jugadorCorrecto(actual,todos))
@@ -83,35 +109,10 @@ module Civitas
       end
     end
     
-    private
-    
-    def getTituloPropiedad
-      if (@tipo == TipoCasilla::CALLE)
-        return @titulo
-      else
-        return nil
-      end
-    end
-
-    def recibeJugador(actual,todos)
-        case tipo
-            when TipoCasilla::CALLE
-                recibeJugador_calle(actual, todos);
-            when TipoCasilla::CALLE
-                recibeJugador_impuesto(actual, todos);
-            when TipoCasilla::CALLE
-                recibeJugador_juez(actual, todos);
-            when TipoCasilla::CALLE
-                recibeJugador_sorpresa(actual, todos);
-            else
-                informe(actual, todos);
-        end
-    end
-    
     def recibeJugador_calle(actual,todos)
       if(self.jugadorCorrecto(actual,todos))
            informe(actual, todos)
-           Jugador jugador = todos.get(actual)
+           jugador = todos.at(actual)
            if(!@titulo.tienePropietario())
                jugador.puedeComprarCasilla() 
            else

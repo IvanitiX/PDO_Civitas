@@ -4,7 +4,7 @@
 #Author: Iván Valero Rodríguez
 
 module Civitas  
-  module OperacionesJuego    
+  module OperacionesJuego
     AVANZAR = :Avanzar    
     COMPRAR = :Comprar    
     GESTIONAR = :Gestionar    

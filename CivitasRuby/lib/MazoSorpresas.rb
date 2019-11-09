@@ -33,7 +33,7 @@ module Civitas
     
     def siguiente
       if (!@barajada || @usadas == @sorpresas.size)
-        @sorpresas.shuffle
+        #@sorpresas.shuffle
         @usadas = 0
         @barajada = true
       end

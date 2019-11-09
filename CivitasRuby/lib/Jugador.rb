@@ -4,6 +4,8 @@
 
 #Author: Miguel Muñoz Molina
 #Author: Iván Valero Rodríguez
+require_relative "Dado"
+require_relative "titulo_propiedad"
 
 module Civitas
   class Jugador
@@ -11,11 +13,11 @@ module Civitas
     @@CasasMax = 4
     @@HotelesMax = 4
     @@CasasPorHotel = 4
-    @@PasoPorSalida = 1000
-    @@SaldoInicial = 7500
-    @@PrecioLibertad = 200
+    @@PasoPorSalida = 1000.0
+    @@SaldoInicial = 7500.0
+    @@PrecioLibertad = 200.0
     
-    attr_reader :nombre, :numCasillaActual, :saldo, :puedeComprar, :encarcelado
+    attr_reader :nombre, :numCasillaActual, :saldo, :puedeComprar, :encarcelado, :propiedades
     
     private_class_method :new
     
@@ -48,7 +50,7 @@ module Civitas
       if(debeSerEncarcelado)
         moverACasilla(numCasillaCarcel)
         @encarcelado = true
-        @diario.ocurreEvento(" #{@nombre} va a ir a la carcel.")
+        @diario.ocurre_evento(" #{@nombre} va a ir a la carcel.")
       end
       return @encarcelado
     end
@@ -71,7 +73,7 @@ module Civitas
       else
         @numCasillaActual = numCasilla
         @puedeComprar = false
-        @diario.ocurreEvento("El jugador #{@nombre} se ha movido de casilla.")
+        @diario.ocurre_evento("El jugador #{@nombre} se ha movido de casilla.")
         return true
       end
     end
@@ -123,7 +125,8 @@ module Civitas
     def salirCarcelPagando
       if(puedeSalirCarcelPagando)
         paga(@@PrecioLibertad)
-        @diario.ocurreEvento("#{@nombre} ha pagado la fianza y sale de la carcel.")
+        @diario.ocurre_evento("#{@nombre} ha pagado la fianza y sale de la carcel.")
+        @encarcelado = false
         return true
       else
         return false
@@ -132,8 +135,8 @@ module Civitas
     
     def salirCarcelTirando
       if (@dado.salgoDeLaCarcel)
-        @encarcelado = true
-        @diario.ocurreEvento("#{@nombre} ha salido de la carcel por el dado.")
+        @encarcelado = false
+        @diario.ocurre_evento("#{@nombre} ha salido de la carcel por el dado.")
       end
       return @encarcelado
     end
@@ -184,6 +187,7 @@ module Civitas
           if (@propiedades[ip].vender(self))
             @propiedades.delete_at(ip)
             @diario.ocurre_evento("Se ha vendido la propiedad")
+            self.to_s
             return true
           end
         end
@@ -196,11 +200,11 @@ module Civitas
     end
     
     def puedoEdificarCasa(titulo)
-      return titulo.getNumCasas < @@CasasMax && puedoGastar(titulo.getPrecioEdificar)
+      return titulo.numCasas < @@CasasMax && puedoGastar(titulo.precioEdificar)
     end
     
     def puedoEdificarHotel(titulo)
-      return titulo.getNumHoteles < @@HotelesMax && puedoGastar(3*titulo.getPrecioEdificar)
+      return titulo.numHoteles < @@HotelesMax && puedoGastar(3*titulo.precioEdificar)
     end
     
     def cantidadCasasHoteles
@@ -236,11 +240,11 @@ module Civitas
       end
       if(existeLaPropiedad(ip))
       propiedad = @propiedades[ip]
-        puedoEdificarHotel = puedoEdificarCasa(propiedad)
+        puedoEdificarHotel = puedoEdificarHotel(propiedad)
         if(puedoEdificarHotel)
           result = propiedad.construirHotel(self)
           casasPorHotel = @@CasasPorHotel
-          @propiedad.derruirCasas(casasPorHotel, self)
+          @propiedades[ip].derruirCasas(casasPorHotel, self)
           if(result)
             @diario.ocurre_evento("El jugador  #{@nombre}  construye hotel en la propiedad #{ip}")
           end
@@ -249,14 +253,14 @@ module Civitas
       return result
     end
      
-    def hipotecar(ip)      
+    def hipotecar(ip)  
       result = false
       if(@encarcelado)
         return result
       end
       if(existeLaPropiedad(ip))
           propiedad = @propiedades[ip]
-          result = propiedad.construirCasa(self)
+          result = propiedad.hipotecar(self)
           if(result)
             @diario.ocurre_evento("El jugador  #{@nombre}  hipoteca la propiedad #{ip}")
           end
@@ -272,7 +276,7 @@ module Civitas
       if(puedoGastar)
         result = propiedad.cancelarHipoteca(self)
         if(result)
-          @diario.ocurreEvento("El jugador #{@nombre} cancela la hipoteca de la propiedad #{ip}")
+          @diario.ocurre_evento("El jugador #{@nombre} cancela la hipoteca de la propiedad #{ip}")
         end
       end
       return result
@@ -321,7 +325,7 @@ module Civitas
     end
     
    def to_s
-        return "Jugador{ nombre= #{@nombre} \n numCasillaActual= #{@numCasillaActual} \n saldo= #{@saldo} \n puedeComprar= #{@puedeComprar}\n encarcelado= #{@encarcelado}\n diario= #{@diario}\n salvoconducto= #{@salvoconducto} }";
+        return "Jugador{ nombre= #{@nombre} \n numCasillaActual= #{@numCasillaActual} \n saldo= #{@saldo} \n puedeComprar= #{@puedeComprar}\n encarcelado= #{@encarcelado}\n diario= #{@diario}\n salvoconducto= #{@salvoconducto}\n propiedades = #{@propiedades} }";
    end
    
    public :to_s

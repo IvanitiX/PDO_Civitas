@@ -9,6 +9,9 @@
 require_relative "gestor_estados"
 require_relative "titulo_propiedad"
 require_relative "Jugador"
+require_relative "Tablero"
+require_relative "MazoSorpresas"
+require_relative "TipoSorpresa"
 module Civitas
   
   class CivitasJuego
@@ -92,7 +95,7 @@ module Civitas
     end
     
     def siguientePasoCompletado(operacion)
-      @estado = @gestorEstados.siguienteEstado(getJugadorActual, @estado, operacion)
+      @estado = @gestorEstados.siguiente_estado(getJugadorActual, @estado, operacion)
     end
     
     def actualizarInfo
@@ -129,17 +132,17 @@ module Civitas
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PAGARCOBRAR, 500, "El Gobierno te ha dado una subvencion por tus propiedades."))
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PAGARCOBRAR, -500, "Pagas penalizacion por pasarte de potencia electrica."))
         @mazo.alMazo(Sorpresa.sopresaCasilla(TipoSorpresa::IRCASILLA, tablero, 0, "Ve a la salida y cobra antes que nadie (o no)."))
+                @mazo.alMazo(Sorpresa.sorpresaSalirCarcel(TipoSorpresa::SALIRCARCEL, @mazo))
         @mazo.alMazo(Sorpresa.sopresaCarcel(TipoSorpresa::IRCARCEL, tablero))
         @mazo.alMazo(Sorpresa.sopresaCasilla(TipoSorpresa::IRCASILLA, tablero, 10, "Despues de salir con el runner, ve a La Posada y descansa."))
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORCASAHOTEL, 100, "El Gobierno te extiende una transferencia para mejorar tus edificios."))
-        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORCASAHOTEL, 100, "Hacienda te pide bajo pena de prision que pagues tus tributos."))
-        @mazo.alMazo(Sorpresa.sorpresaSalirCarcel(TipoSorpresa::SALIRCARCEL, @mazo))
+        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORCASAHOTEL, -100, "Hacienda te pide bajo pena de prision que pagues tus tributos."))
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORJUGADOR, 100, "Es tu santo Como no te han comprado nada, te daran dinero."))
-        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORJUGADOR, 100, "Le has roto el coche a los 3  y debes compensarles."))
+        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORJUGADOR, -100, "Le has roto el coche a tus compañeros y debes compensarles."))
     end
     
     def pasarTurno
-      indiceJugadorActual = (@indiceJugadorActual+1)%@jugadores.size
+      @indiceJugadorActual = (@indiceJugadorActual+1)%@jugadores.size
     end
     
     def contabilizarPasosPorSalida(jugadorActual)
@@ -150,7 +153,7 @@ module Civitas
     
     def avanzaJugador()
       jugadorActual = getJugadorActual()
-      posicionActual = jugadorActual.numeroCasillaActual
+      posicionActual = jugadorActual.numCasillaActual
       tirada = @dado.tirar
       posicionNueva = @tablero.nuevaPosicion(posicionActual, tirada)
       casilla = @tablero.getCasilla(posicionNueva)
@@ -160,7 +163,23 @@ module Civitas
       contabilizarPasosPorSalida(jugadorActual)
     end
     
-    def comprar()
+    
+    public
+    def siguientePaso()
+       jugadorActual = getJugadorActual()
+        operacion = @gestorEstados.operaciones_permitidas(jugadorActual, @estado) 
+        if(operacion == OperacionesJuego::PASAR_TURNO)
+            pasarTurno();
+            siguientePasoCompletado(operacion);
+        else if (operacion == OperacionesJuego::AVANZAR)
+            avanzaJugador();
+            siguientePasoCompletado(operacion);
+          end
+        end
+        return operacion
+    end
+    
+        def comprar()
       jugadorActual = getJugadorActual()
       numCasillaActual = jugadorActual.numCasillaActual
       casilla = @tablero.getCasilla(numCasillaActual)
@@ -169,21 +188,7 @@ module Civitas
       return res
     end
     
-    public
-    def siguientePaso()
-       jugadorActual = getJugadorActual()
-        OperacionesJuego operacion = gestorEstados.operacionesPermitidas(jugadorActual, estado) 
-        if(operacion == OperacionesJuego.PASAR_TURNO)
-            pasarTurno();
-            siguientePasoCompletado(operacion);
-        else if (operacion == OperacionesJuego.AVANZAR)
-            avanzaJugador();
-            siguientePasoCompletado(operacion);
-          end
-        end
-        return operacion
-    end
-    
   end
+  
   
 end
