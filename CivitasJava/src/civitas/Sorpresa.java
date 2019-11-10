@@ -68,7 +68,7 @@ public class Sorpresa {
     
     void informe (int actual, ArrayList<Jugador> todos){
         if (jugadorCorrecto(actual, todos))
-            diario.ocurreEvento("Se ha aplicado una sorpresa de tipo" + tipo + " a" + todos.get(actual).getNombre());
+            diario.ocurreEvento("Se ha aplicado una sorpresa de tipo " + tipo + " a " + todos.get(actual).getNombre());
     }
     
     /* SUPONDREMOS QUE NO SE LLAMA A LOS METODOS DE ABAJO SUELTOS <3 */
@@ -181,7 +181,7 @@ public class Sorpresa {
 
     @Override
     public String toString() {
-        return "Sorpresa{" + "texto=" + texto + ", valor=" + valor + ", tipo=" + tipo + ", mazo=" + mazo + ", tablero=" + tablero + ", diario=" + diario + '}';
+        return "\n---Sorpresa---" + "\n" + texto + "\nValor: " + valor + "\nTipo: " + tipo + "\n";
     }
     
     

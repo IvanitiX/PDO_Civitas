@@ -20,6 +20,7 @@ public class JuegoTexto {
         nombres.add("Ivan");
         nombres.add("Mumo");
         
+        
         CivitasJuego juego = new CivitasJuego(nombres);
         VistaTextual vista = new VistaTextual();
         

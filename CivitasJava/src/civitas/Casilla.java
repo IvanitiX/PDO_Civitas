@@ -75,7 +75,7 @@ public class Casilla {
     
     void informe (int actual, ArrayList<Jugador> todos){
         if (jugadorCorrecto(actual, todos))
-            diario.ocurreEvento(todos.get(actual).getNombre()+ "ha llegado a la casilla " + toString());
+            diario.ocurreEvento(todos.get(actual).getNombre()+ " ha llegado a la casilla: " + toString());
     }
     
     public boolean jugadorCorrecto(int actual, ArrayList<Jugador> todos){
@@ -83,21 +83,24 @@ public class Casilla {
     }
     
     public String toString(){
-        String s = "Casilla \n Nombre: " + nombre + "\n Tipo: " + tipo;
+        String s = "\nNombre: " + nombre + "\nTipo: " + tipo;
         if(tipo==TipoCasilla.CALLE){
             s += "\n" + titulo.toString() ;
         }
         if(tipo==TipoCasilla.IMPUESTO){
-            s+= "\n Importe del impuesto: " + importe ;
+            s+= "\nImporte del impuesto: " + importe + "\n" ;
         }
         if(tipo==TipoCasilla.JUEZ){
-            s+= "\n El jugador será enviado a la cárcel" ;
+            s+= "\nEl jugador será enviado a la cárcel\n" ;
         }
         if(tipo==TipoCasilla.SORPRESA){
-            s+= "\n La sorpresa que saldrá es : " + sorpresa.toString() ;
-        } 
+            s+= "\nLa sorpresa que saldrá es:\n" + sorpresa.toString() ;
+        }
+        if(tipo==TipoCasilla.DESCANSO){
+            s+= "\nEstas descansando...";
+        }
         else{
-            s+= "\nLa carcel";
+            s+= "\nBienvenido a la carcel\n";
         }
         return s ;
     }

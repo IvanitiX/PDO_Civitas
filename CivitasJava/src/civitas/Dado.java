@@ -44,6 +44,7 @@ class Dado {
             tirada = (int)(random.nextDouble()*6 + 1) ;
         }
         ultimoResultado = tirada ;
+        
         return tirada ;
     }
     

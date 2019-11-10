@@ -96,7 +96,7 @@ class VistaTextual {
     for (TituloPropiedad p:propiedades){
         nombres.add(p.toString());
     }   
-    
+
     int opcion2 = menu("¿Que propiedad quieres gestionar?",nombres);
     
     iGestion = opcion1;
