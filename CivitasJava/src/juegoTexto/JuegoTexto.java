@@ -6,6 +6,7 @@
 package juegoTexto;
 
 import civitas.CivitasJuego;
+import civitas.Dado ;
 import java.util.ArrayList;
 
 /**
@@ -14,12 +15,14 @@ import java.util.ArrayList;
  */
 public class JuegoTexto {
 
+    
 
     public static void main(String[] args) {
         ArrayList<String>  nombres = new ArrayList<>();
         nombres.add("Ivan");
         nombres.add("Mumo");
         
+        Dado.getInstance().setDebug(true);
         
         CivitasJuego juego = new CivitasJuego(nombres);
         VistaTextual vista = new VistaTextual();

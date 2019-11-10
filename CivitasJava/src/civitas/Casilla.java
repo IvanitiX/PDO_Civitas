@@ -44,7 +44,7 @@ public class Casilla {
         this.sorpresa = mazo.siguiente() ;
     }
 
-    public Casilla(float importe, String nombre) {
+    public Casilla(String nombre, float importe) {
         init() ;
         this.nombre = nombre;
         this.importe = importe;
@@ -99,7 +99,7 @@ public class Casilla {
         if(tipo==TipoCasilla.DESCANSO){
             s+= "\nEstas descansando...";
         }
-        else{
+        if ("Carcel".equals(nombre) ){
             s+= "\nBienvenido a la carcel\n";
         }
         return s ;

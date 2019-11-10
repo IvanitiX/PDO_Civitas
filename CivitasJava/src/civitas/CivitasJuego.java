@@ -98,7 +98,7 @@ public class CivitasJuego {
         tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Platón", 400, 50, (float) 0.0, 300, 100))) ;
         tablero.aniadeJuez() ;
         tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Ntra.Sra de Tíscar", 200, 70, (float) 0.1, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(200, "Zona azul")) ;
+        tablero.aniadeCasilla(new Casilla("Zona azul",200)) ;
         tablero.aniadeCasilla(new Casilla(new TituloPropiedad("José de Mora", 300, 50, (float) -0.1, 300, 100))) ;
         tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Baza", 400, 60, (float) 0.2, 300, 100))) ;
         tablero.aniadeCasilla(new Casilla("Bar La Posada")) ;

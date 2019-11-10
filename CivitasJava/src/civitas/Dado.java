@@ -11,7 +11,7 @@ import java.util.Random;
  *
  * @author ivanva20
  */
-class Dado {
+public class Dado {
     //Clase Singleton
     static final private Dado instance = new Dado();
     static private int salidaCarcel = 5 ;
@@ -20,7 +20,7 @@ class Dado {
     private int ultimoResultado ;
     private boolean debug ;
     
-    static Dado getInstance() {
+    public static Dado getInstance() {
         return instance;
     }
     
@@ -39,7 +39,7 @@ class Dado {
     }
     
     int tirar(){
-        int tirada = 1 ;
+        int tirada = 5 ;
         if (!debug){
             tirada = (int)(random.nextDouble()*6 + 1) ;
         }
