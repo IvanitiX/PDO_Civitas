@@ -188,6 +188,7 @@ public class TituloPropiedad {
         jugador.modificarSaldo(getPrecioVenta()) ;
         this.derruirCasas(getNumCasas(), jugador) ;
         this.numHoteles = 0 ;
+        this.propietario=null;
         return false ;
     }
     

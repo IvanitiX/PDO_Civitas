@@ -171,7 +171,10 @@ public class CivitasJuego {
         Jugador jugadorActual = getJugadorActual();
         int posicionActual = jugadorActual.getNumCasillaActual() ;
         int tirada = dado.tirar() ;
-        System.out.println("Tiras el dado y sale un " + tirada + "\n") ;
+        System.out.println("<<-------------Tirada del Dado---------------");
+        System.out.println("Tiras el dado y sale un " + tirada) ;
+        System.out.println("---------------Tirada del Dado------------->>");
+
         int posicionNueva = tablero.nuevaPosicion(posicionActual, tirada) ;
         Casilla casilla = tablero.getCasilla(posicionNueva) ;
         this.contabilizarPasosPorSalida(jugadorActual);

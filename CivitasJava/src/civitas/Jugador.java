@@ -221,6 +221,7 @@ public class Jugador implements Comparable<Jugador> {
         else{
             if (existeLaPropiedad(ip)){
                 propiedades.get(ip).vender(this) ;
+                propiedades.remove(ip);
                 return true ;
             }
             else return false;

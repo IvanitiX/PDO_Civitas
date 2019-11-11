@@ -29,7 +29,10 @@ class VistaTextual {
   }
   
   void mostrarEstado(String estado) {
+    System.out.println("<<-------------Estado de Juego---------------");
     System.out.println (estado);
+    System.out.println("---------------Estado de Juego------------->>");
+
   }
               
   void pausa() {
@@ -75,18 +78,23 @@ class VistaTextual {
   }
 
   SalidasCarcel salirCarcel() {
+    System.out.println("<<-------------Salir Carcel---------------");
     int opcion = menu ("Elige la forma para intentar salir de la carcel",
       new ArrayList<> (Arrays.asList("Pagando","Tirando el dado")));
+    System.out.println("---------------Salir Carcel------------->>");
     return (SalidasCarcel.values()[opcion]);
   }
 
   Respuestas comprar() {
+    System.out.println("<<-------------Comprar---------------");
     int opcion = menu ("Elige si quieres o no comprar la calle en la que estas situado",
     new ArrayList<> (Arrays.asList("NO","SI")));
+    System.out.println("---------------Comprar------------->>");
     return (Respuestas.values()[opcion]);
   }
 
   void gestionar () {
+    System.out.println("<<-------------Gestionar---------------");
     int opcion1 = menu ("¿Que numero de gestion inmobiliaria deseas hacer?",
     new ArrayList<> (Arrays.asList("VENDER", "HIPOTECAR", "CANCELAR_HIPOTECA", "CONSTRUIR_CASA", "CONSTRUIR_HOTEL", "TERMINAR")));
     
@@ -97,10 +105,20 @@ class VistaTextual {
         nombres.add(p.toString());
     }   
 
-    int opcion2 = menu("¿Que propiedad quieres gestionar?",nombres);
+    if (juegoModel.getJugadorActual().getPropiedades().size() != 0 && opcion1 != 5){
     
-    iGestion = opcion1;
-    iPropiedad = opcion2;
+        int opcion2 = menu("¿Que propiedad quieres gestionar?",nombres);
+        iPropiedad = opcion2;
+        iGestion = opcion1;
+    }else{
+        iGestion=5;
+    }
+    
+    if (juegoModel.getJugadorActual().getPropiedades().size() == 0)
+        System.out.println("!No es por nada, pero... ¿no crees que no tiene sentido que puedas gestionar algo que no existe? (Error 404)");
+
+    System.out.println("---------------Gestionar------------->>");
+    
   }
   
   public int getGestion(){
@@ -113,14 +131,19 @@ class VistaTextual {
     
 
   void mostrarSiguienteOperacion(OperacionesJuego operacion) {
+    System.out.println("<<-------------Operaciones Juego---------------");
+
       System.out.println(operacion);
+    System.out.println("---------------Operaciones Juego------------->>");
   }
 
 
   void mostrarEventos() {
+      System.out.println("<<-------------Evento Diario---------------");
       while (Diario.getInstance().eventosPendientes()){
-          System.out.println(Diario.getInstance().leerEvento());
+          System.out.println(">> " + Diario.getInstance().leerEvento());
       }
+      System.out.println("---------------Evento Diario------------->>");
   }
   
   public void setCivitasJuego(CivitasJuego civitas){ 
@@ -130,8 +153,11 @@ class VistaTextual {
     }
   
   void actualizarVista(){
+      System.out.println("<<-------------Jugador Actual---------------");
       System.out.println( juegoModel.getJugadorActual().toString() );
-      System.out.println(separador);
+      System.out.println("---------------Jugador Actual------------->>\n");
+      System.out.println("<<-------------Casilla Actual---------------");
       System.out.println( juegoModel.getCasillaActual().toString() );
+      System.out.println("---------------Casilla Actual------------->>\n");
   } 
 }
