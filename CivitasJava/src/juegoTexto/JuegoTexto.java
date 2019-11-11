@@ -22,7 +22,7 @@ public class JuegoTexto {
         nombres.add("Ivan");
         nombres.add("Mumo");
         
-        Dado.getInstance().setDebug(true);
+        Dado.getInstance().setDebug(false);
         
         CivitasJuego juego = new CivitasJuego(nombres);
         VistaTextual vista = new VistaTextual();

@@ -171,7 +171,8 @@ public class Jugador implements Comparable<Jugador> {
     boolean salirCarcelPagando(){
         if(puedeSalirCarcelPagando()){
             paga(PrecioLibertad) ;
-            diario.ocurreEvento(nombre + "ha pagado la fianza y sale de la cárcel.");
+            diario.ocurreEvento(nombre + " ha pagado la fianza y sale de la cárcel.\n");
+            encarcelado = false ;
             return true ;
         }
         else return false ;
@@ -179,8 +180,8 @@ public class Jugador implements Comparable<Jugador> {
     
     boolean salirCarcelTirando(){
         if (dado.salgoDeLaCarcel()){
-            encarcelado = true ;
-            diario.ocurreEvento(nombre + "ha salido de la cárcel por el dado.");
+            encarcelado = false ;
+            diario.ocurreEvento(nombre + " ha salido de la cárcel por el dado.\n");
         }
         return encarcelado ;
     }
