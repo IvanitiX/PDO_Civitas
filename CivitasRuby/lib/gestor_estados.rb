@@ -1,3 +1,5 @@
+#encoding:utf-8
+
 require_relative 'diario'
 require_relative "OperacionesJuego"
 require_relative "estados_juego"

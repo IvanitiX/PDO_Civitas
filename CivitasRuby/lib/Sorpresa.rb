@@ -1,6 +1,3 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
 #encoding UTF-8
 
 #Author: Miguel Muñoz Molina
@@ -21,12 +18,12 @@ module Civitas
       @diario = Diario.instance
     end
 
-    def self.sopresaCarcel(tipo, tablero)
+    def self.sorpresaCarcel(tipo, tablero)
       texto = "Te han pillado dando galletas Oreo rellenas de pasta de dientes."
       new(tipo, nil, tablero, -1, texto )
     end
     
-    def self.sopresaCasilla(tipo, tablero, valor, texto)
+    def self.sorpresaCasilla(tipo, tablero, valor, texto)
       new(tipo, nil, tablero, valor, texto)
     end
     

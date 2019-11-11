@@ -1,6 +1,4 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
+#encoding:utf-8
 
 #Author: Miguel Muñoz Molina
 #Author: Iván Valero Rodríguez
@@ -21,7 +19,7 @@ module Civitas
     
     def tirar
       numerosDado = %w{ 1 2 3 4 5 6 }
-      tirada = 3
+      tirada = 1
       if(!@debug)
         tirada = rand(numerosDado.length) + 1
       end

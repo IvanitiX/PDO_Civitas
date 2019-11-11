@@ -18,6 +18,7 @@ module Civitas
       print "Pulsa una tecla"
       #STDIN.getch
       gets
+       #Con getch me salia un fallo, puse gets
       print "\n"
     end
 
@@ -64,22 +65,27 @@ module Civitas
     end
     
     def salirCarcel
+      puts "<<-------------Salir Carcel---------------"
       listaRespuestas = [SalidasCarcel::PAGANDO, SalidasCarcel::TIRANDO]
       opcion = menu("¿Cómo quieres intentar salir de la cárcel? (Selecciona un número)",
       listaRespuestas)
+      puts "---------------Salir Carcel------------->>"
       return listaRespuestas[opcion]
     end
 
     
     def comprar
+      puts "<<-------------Comprar---------------"
       listaRespuestas = [Respuestas::SI,Respuestas::NO]
       opcion = menu("¿Quieres comprar la calle en la que estás situado? (Selecciona un número)",
       listaRespuestas)
+      puts "---------------Comprar------------->>"
       return listaRespuestas[opcion]
       
     end
 
     def gestionar
+      puts "<<-------------Gestionar---------------"
       listaRespuestas = [GestionesInmobiliarias::VENDER, GestionesInmobiliarias::HIPOTECAR, 
         GestionesInmobiliarias::CANCELAR_HIPOTECA, GestionesInmobiliarias::CONSTRUIR_CASA, 
         GestionesInmobiliarias::CONSTRUIR_HOTEL,GestionesInmobiliarias::TERMINAR]
@@ -103,9 +109,10 @@ module Civitas
         @iGestion = 5
       end
       
-      if (@juegoModel.getJugadorActual.propiedades.size == 0)
-        puts "[!] No es por nada, pero... ¿no crees que no tiene sentido que puedas gestionar algo que no existe? (Error 404)"
+      if (@juegoModel.getJugadorActual.propiedades.size == 0 && @iGestion != 5)
+        puts "[!] No es por nada, pero... ¿no crees que no tiene sentido que puedas gestionar algo que no existe? (Error 404). Fin de turno."
       end
+      puts "---------------Gestionar------------->>"
     end
 
     def getGestion
@@ -117,13 +124,17 @@ module Civitas
     end
 
     def mostrarSiguienteOperacion(operacion)
+      puts "<<-------------Operaciones Juego---------------"
       puts operacion
+      puts "---------------Operaciones Juego------------->>"
     end
 
     def mostrarEventos
+      puts "<<-------------Evento Diario---------------"
       while (Diario.instance.eventos_pendientes)
         puts Diario.instance.leer_evento
       end
+      puts "---------------Evento Diario------------->>"
     end
 
     def setCivitasJuego(civitas)
@@ -132,10 +143,12 @@ module Civitas
     end
 
     def actualizarVista
-      puts "==========================================="
+      puts "<<-------------Jugador Actual---------------"
       puts @juegoModel.getJugadorActual.to_s
+      puts "---------------Jugador Actual------------->>"
+      puts "<<-------------Casilla Actual---------------"
       puts @juegoModel.getCasillaActual.to_s
-      puts "==========================================="
+      puts "---------------Casilla Actual------------->>"
     end
 
     

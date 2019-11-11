@@ -1,6 +1,3 @@
-# To change this license header, choose License Headers in Project Properties.
-# To change this template file, choose Tools | Templates
-# and open the template in the editor.
 # encoding:utf-8
 
 #Author: Miguel Muñoz Molina
@@ -131,10 +128,10 @@ module Civitas
     def inicializarMazo(tablero)
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PAGARCOBRAR, 500, "El Gobierno te ha dado una subvencion por tus propiedades."))
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PAGARCOBRAR, -500, "Pagas penalizacion por pasarte de potencia electrica."))
-        @mazo.alMazo(Sorpresa.sopresaCasilla(TipoSorpresa::IRCASILLA, tablero, 0, "Ve a la salida y cobra antes que nadie (o no)."))
-                @mazo.alMazo(Sorpresa.sorpresaSalirCarcel(TipoSorpresa::SALIRCARCEL, @mazo))
-        @mazo.alMazo(Sorpresa.sopresaCarcel(TipoSorpresa::IRCARCEL, tablero))
-        @mazo.alMazo(Sorpresa.sopresaCasilla(TipoSorpresa::IRCASILLA, tablero, 10, "Despues de salir con el runner, ve a La Posada y descansa."))
+        @mazo.alMazo(Sorpresa.sorpresaCasilla(TipoSorpresa::IRCASILLA, tablero, 0, "Ve a la salida y cobra antes que nadie (o no)."))
+        @mazo.alMazo(Sorpresa.sorpresaSalirCarcel(TipoSorpresa::SALIRCARCEL, @mazo))
+        @mazo.alMazo(Sorpresa.sorpresaCarcel(TipoSorpresa::IRCARCEL, tablero))
+        @mazo.alMazo(Sorpresa.sorpresaCasilla(TipoSorpresa::IRCASILLA, tablero, 10, "Despues de salir con el runner, ve a La Posada y descansa."))
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORCASAHOTEL, 100, "El Gobierno te extiende una transferencia para mejorar tus edificios."))
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORCASAHOTEL, -100, "Hacienda te pide bajo pena de prision que pagues tus tributos."))
         @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORJUGADOR, 100, "Es tu santo Como no te han comprado nada, te daran dinero."))
@@ -155,6 +152,11 @@ module Civitas
       jugadorActual = getJugadorActual()
       posicionActual = jugadorActual.numCasillaActual
       tirada = @dado.tirar
+      
+      puts "<<-------------Tirada del Dado---------------"
+      puts "Tiras el dado y... ¡sale un #{tirada}!"
+      puts "---------------Tirada del Dado------------->>"
+      
       posicionNueva = @tablero.nuevaPosicion(posicionActual, tirada)
       casilla = @tablero.getCasilla(posicionNueva)
       contabilizarPasosPorSalida(jugadorActual)
