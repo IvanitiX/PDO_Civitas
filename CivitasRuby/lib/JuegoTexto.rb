@@ -5,9 +5,21 @@ require_relative "Controlador"
 module Civitas
   class JuegoTexto
     def self.main
+      #nombres = Array.new
+      #nombres << "Ivan"
+      #nombres << "Mumo"
+      
+      puts "Introduzca el numero de jugadores"
+      numero = gets.chomp.to_i
+      
       nombres = Array.new
-      nombres << "Ivan"
-      nombres << "Mumo"
+      
+      for i in (0...numero)
+        puts "Introduzca el nombre del jugador #{i}"
+        cadena = gets
+        
+        nombres << cadena 
+      end
       
       Dado.instance.debug = true
       
