@@ -69,7 +69,7 @@ public class Tablero {
     
     void aniadeJuez(){
         if(!tieneJuez){
-            aniadeCasilla(new Casilla(numCasillaCarcel, "Juez"));
+            aniadeCasilla(new CasillaJuez(numCasillaCarcel, "Juez"));
             tieneJuez = true;
         }
     }

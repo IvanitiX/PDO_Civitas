@@ -39,7 +39,7 @@ public class Dado {
     }
     
     int tirar(){
-        int tirada = 1;
+        int tirada = 3;
         if (!debug){
             tirada = (int)(random.nextDouble()*6 + 1) ;
         }

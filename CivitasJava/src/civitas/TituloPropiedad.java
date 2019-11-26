@@ -177,7 +177,8 @@ public class TituloPropiedad {
     }
     
     void actualizarPropietarioPorConversion(Jugador jugador){
-        throw new UnsupportedOperationException("No implementado") ;
+        propietario = (Jugador) jugador ;
+        //throw new UnsupportedOperationException("No implementado") ;
     }
     
     private float getImporteHipoteca(){

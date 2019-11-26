@@ -43,8 +43,6 @@ public class TestP1 {
         System.out.println("_____________________________________________\n\n");
         
         System.out.println("Test 3 : Elementos de un enumerado");
-        System.out.println(TipoSorpresa.IRCARCEL);
-        System.out.println(TipoCasilla.CALLE);
         System.out.println(EstadosJuego.INICIO_TURNO);
         
                 
@@ -53,8 +51,8 @@ public class TestP1 {
         System.out.println("Test 4 : Mazo Sorpresas y Diario");
         MazoSorpresas mazo = new MazoSorpresas(true);
         Sorpresa s1,s2 ;
-        s1 = new Sorpresa (TipoSorpresa.PAGARCOBRAR, 500, "El Gobierno te ha dado una subvención por tus propiedades.") ;
-        s2 = new Sorpresa (TipoSorpresa.PAGARCOBRAR, -500, "El Gobierno te ha dado una jodienda por tus propiedades.") ;
+        s1 = new SorpresaPagarCobrar (500, "El Gobierno te ha dado una subvención por tus propiedades.") ;
+        s2 = new SorpresaPagarCobrar (-500, "El Gobierno te ha dado una jodienda por tus propiedades.") ;
         mazo.alMazo (s1) ;
         mazo.alMazo (s2) ;
         mazo.siguiente() ;

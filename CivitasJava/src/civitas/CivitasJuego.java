@@ -92,37 +92,39 @@ public class CivitasJuego {
     }
     
     private void inicializarTablero(MazoSorpresas mazo){
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Calderón de la Barca", 200, 50, (float) 0.1, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Montilla", 300, 60, (float) 0.2, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(mazo,"¡Sorpresa!")) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Platón", 400, 50, (float) 0.0, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Calderón de la Barca", 200, 50, (float) 0.1, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Montilla", 300, 60, (float) 0.2, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaSorpresa (mazo,"¡Sorpresa!")) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Platón", 400, 50, (float) 0.0, 300, 100))) ;
         tablero.aniadeJuez() ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Ntra.Sra de Tíscar", 200, 70, (float) 0.1, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla("Zona azul",200)) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("José de Mora", 300, 50, (float) -0.1, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Baza", 400, 60, (float) 0.2, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Ntra.Sra de Tíscar", 200, 70, (float) 0.1, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaImpuesto ("Zona azul",200)) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("José de Mora", 300, 50, (float) -0.1, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Baza", 400, 60, (float) 0.2, 300, 100))) ;
         tablero.aniadeCasilla(new Casilla("Bar La Posada")) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Juan de Echevarría", 200, 50, (float) 0.2, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(mazo,"¡Sorpresa!")) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("San León", 300, 70, (float) 0.1, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Vía Láctea", 400, 80, (float) -0.2, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Sierra Morena", 200, 80, (float) 0.1, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(mazo,"¡Sorpresa!")) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Casillas", 300, 50, (float) 0.2, 300, 100))) ;
-        tablero.aniadeCasilla(new Casilla(new TituloPropiedad("Francisco Pradilla", 400, 60, (float) 0.0, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Juan de Echevarría", 200, 50, (float) 0.2, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaSorpresa (mazo,"¡Sorpresa!")) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("San León", 300, 70, (float) 0.1, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Vía Láctea", 400, 80, (float) -0.2, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Sierra Morena", 200, 80, (float) 0.1, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaSorpresa (mazo,"¡Sorpresa!")) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Casillas", 300, 50, (float) 0.2, 300, 100))) ;
+        tablero.aniadeCasilla(new CasillaCalle(new TituloPropiedad("Francisco Pradilla", 400, 60, (float) 0.0, 300, 100))) ;
     }
     
     private void inicializarMazo(Tablero tablero){
-        mazo.alMazo (new Sorpresa (TipoSorpresa.PAGARCOBRAR, 500, "El Gobierno te ha dado una subvención por tus propiedades.")) ;
-        mazo.alMazo (new Sorpresa (TipoSorpresa.PAGARCOBRAR, -500, "Pagas penalización por pasarte de potencia eléctrica.")) ;
-        mazo.alMazo (new Sorpresa (TipoSorpresa.IRCASILLA, tablero, 0, "Ve a la salida y cobra antes que nadie (o no).")) ;
-        mazo.alMazo(new Sorpresa(TipoSorpresa.IRCARCEL, tablero));
-        mazo.alMazo (new Sorpresa (TipoSorpresa.IRCASILLA, tablero, 10, "Después de salir con el runner, ve a La Posada y descansa.")) ;
-        mazo.alMazo (new Sorpresa (TipoSorpresa.PORCASAHOTEL, 100, "El Gobierno te extiende una transferencia para mejorar tus edificios.")) ;
-        mazo.alMazo (new Sorpresa (TipoSorpresa.PORCASAHOTEL, 100, "Hacienda te pide bajo pena de prisión que pagues tus tributos.")) ;
-        mazo.alMazo(new Sorpresa(TipoSorpresa.SALIRCARCEL, mazo));
-        mazo.alMazo (new Sorpresa (TipoSorpresa.PORJUGADOR, 100, "¡Es tu cumpleaños! Como no te han comprado regalos, te darán dinero.")) ;
-        mazo.alMazo (new Sorpresa (TipoSorpresa.PORJUGADOR, 100, "Le has roto el coche a los 3  y debes compensarles.")) ;
+        mazo.alMazo (new SorpresaPagarCobrar (500, "El Gobierno te ha dado una subvención por tus propiedades.")) ;
+        mazo.alMazo (new SorpresaPagarCobrar (-500, "Pagas penalización por pasarte de potencia eléctrica.")) ;
+        mazo.alMazo (new SorpresaCasilla (tablero, 0, "Ve a la salida y cobra antes que nadie (o no).")) ;
+        mazo.alMazo(new SorpresaCarcel (tablero));
+        mazo.alMazo (new SorpresaCasilla (tablero, 10, "Después de salir con el runner, ve a La Posada y descansa.")) ;
+        mazo.alMazo (new SorpresaCasaHotel (100, "El Gobierno te extiende una transferencia para mejorar tus edificios.")) ;
+        mazo.alMazo (new SorpresaCasaHotel (100, "Hacienda te pide bajo pena de prisión que pagues tus tributos.")) ;
+        mazo.alMazo(new SorpresaSalirCarcel (mazo));
+        mazo.alMazo (new SorpresaJugador (100, "¡Es tu cumpleaños! Como no te han comprado regalos, te darán dinero.")) ;
+        mazo.alMazo (new SorpresaJugador (100, "Le has roto el coche a los 3  y debes compensarles.")) ;
+        mazo.alMazo (new SorpresaConvertirEspeculador (3000, "Te conviertes en especulador... " + "de poca monta.")) ;
+        mazo.alMazo (new SorpresaConvertirEspeculador (5000, "Te conviertes en especulador... " + "y reinas el mercado.")) ;
     }
     
     public String infoJugadorTexto(){
@@ -200,8 +202,8 @@ public class CivitasJuego {
     public boolean comprar(){
         Jugador jugadorActual = getJugadorActual() ;
         int numCasillaActual = jugadorActual.getNumCasillaActual() ;
-        Casilla casilla = tablero.getCasilla(numCasillaActual) ;
-        TituloPropiedad titulo = casilla.getTitulo() ;
+        CasillaCalle casilla = (CasillaCalle) tablero.getCasilla(numCasillaActual) ;
+        TituloPropiedad titulo = casilla.getTituloPropiedad() ;
         boolean res = jugadorActual.comprar(titulo) ;
         return res ;
     }

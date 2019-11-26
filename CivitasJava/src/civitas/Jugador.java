@@ -25,8 +25,8 @@ public class Jugador implements Comparable<Jugador> {
     private boolean puedeComprar ;
     protected boolean encarcelado ;
     private Diario diario = Diario.getInstance() ;
-    private Sorpresa salvoconducto ;
-    private ArrayList<TituloPropiedad> propiedades ;
+    private SorpresaSalirCarcel salvoconducto ;
+    protected ArrayList<TituloPropiedad> propiedades ;
     private Dado dado = Dado.getInstance() ;
 
     Jugador(String nombre) {
@@ -36,7 +36,7 @@ public class Jugador implements Comparable<Jugador> {
         this.puedeComprar = false ;
         this.saldo = SaldoInicial ;
         salvoconducto = null;
-        propiedades = new ArrayList<TituloPropiedad>() ;
+        propiedades = new ArrayList<>() ;
     }
 
     protected Jugador(Jugador otro) {
@@ -45,13 +45,15 @@ public class Jugador implements Comparable<Jugador> {
         this.saldo = otro.saldo;
         this.puedeComprar = otro.puedeComprar;
         this.encarcelado = otro.encarcelado ;
+        this.salvoconducto = otro.salvoconducto;
+        this.propiedades = otro.propiedades ;
     }
 
-    private static int getCasasMax() {
+    protected static int getCasasMax() {
         return CasasMax;
     }
 
-    private static int getHotelesMax() {
+    protected static int getHotelesMax() {
         return HotelesMax;
     }
 
@@ -155,7 +157,7 @@ public class Jugador implements Comparable<Jugador> {
         salvoconducto = null ;
     }
     
-    boolean obtenerSalvoconducto(Sorpresa sorpresa){
+    boolean obtenerSalvoconducto(SorpresaSalirCarcel sorpresa){
         if (encarcelado)
             return false ;
         else{
@@ -233,13 +235,13 @@ public class Jugador implements Comparable<Jugador> {
     }
     
     boolean puedoEdificarCasa(TituloPropiedad titulo){
-        return titulo.getNumCasas() < CasasMax && puedoGastar(titulo.getPrecioEdificar()) ;
+        return titulo.getNumCasas() < this.getCasasMax() && puedoGastar(titulo.getPrecioEdificar()) ;
     }
     
     boolean puedoEdificarHotel(TituloPropiedad titulo){
         boolean puedoEdificarHotel = false ;
         float precio = titulo.getPrecioEdificar();
-        if (this.puedoGastar(precio) && titulo.getNumHoteles() < getHotelesMax() 
+        if (this.puedoGastar(precio) && titulo.getNumHoteles() < this.getHotelesMax() 
                 && titulo.getNumCasas() >= this.getCasasPorHotel())
             puedoEdificarHotel = true ;
         return puedoEdificarHotel;
