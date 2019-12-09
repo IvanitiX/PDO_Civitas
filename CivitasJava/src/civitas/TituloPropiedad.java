@@ -148,15 +148,15 @@ public class TituloPropiedad {
         return propietario == jugador ;
     }
 
-    String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
-    int getNumCasas() {
+    public int getNumCasas() {
         return numCasas;
     }
 
-    int getNumHoteles() {
+    public int getNumHoteles() {
         return numHoteles;
     }
 

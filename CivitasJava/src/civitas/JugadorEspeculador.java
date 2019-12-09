@@ -36,6 +36,11 @@ public class JugadorEspeculador extends Jugador {
     }
     
     @Override
+    public boolean isEspeculador(){
+        return true ;
+    }
+    
+    @Override
     boolean puedoEdificarCasa(TituloPropiedad titulo){
          return titulo.getNumCasas() < this.getCasasMax() && puedoGastar(titulo.getPrecioEdificar()) ;
     }

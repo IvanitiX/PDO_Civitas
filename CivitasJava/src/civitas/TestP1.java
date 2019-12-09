@@ -9,6 +9,9 @@ package civitas;
  * @author Miguel Muñoz Molina
  * @author Iván Valero Rodríguez
  */
+
+import GUI.Dado ;
+
 public class TestP1 {
 
     /**

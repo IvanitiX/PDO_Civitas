@@ -15,7 +15,7 @@ import civitas.SalidasCarcel;
 import civitas.Respuestas;
 import civitas.TituloPropiedad;
 
-class VistaTextual {
+public class VistaTextual {
   
   CivitasJuego juegoModel; 
   int iGestion=-1;
@@ -24,23 +24,23 @@ class VistaTextual {
   
   private Scanner in;
   
-  VistaTextual () {
+  public VistaTextual () {
     in = new Scanner (System.in);
   }
   
-  void mostrarEstado(String estado) {
+  public void mostrarEstado(String estado) {
     System.out.println("<<-------------Estado de Juego---------------");
     System.out.println (estado);
     System.out.println("---------------Estado de Juego------------->>");
 
   }
               
-  void pausa() {
+  public void pausa() {
     System.out.print ("Pulsa una tecla");
     in.nextLine();
   }
 
-  int leeEntero (int max, String msg1, String msg2) {
+  public int leeEntero (int max, String msg1, String msg2) {
     Boolean ok;
     String cadena;
     int numero = -1;
@@ -77,7 +77,7 @@ class VistaTextual {
     return opcion;
   }
 
-  SalidasCarcel salirCarcel() {
+  public SalidasCarcel salirCarcel() {
     System.out.println("<<-------------Salir Carcel---------------");
     int opcion = menu ("Elige la forma para intentar salir de la carcel",
       new ArrayList<> (Arrays.asList("Pagando","Tirando el dado")));
@@ -85,7 +85,7 @@ class VistaTextual {
     return (SalidasCarcel.values()[opcion]);
   }
 
-  Respuestas comprar() {
+  public Respuestas comprar() {
     System.out.println("<<-------------Comprar---------------");
     int opcion = menu ("Elige si quieres o no comprar la calle en la que estas situado",
     new ArrayList<> (Arrays.asList("NO","SI")));
@@ -93,7 +93,7 @@ class VistaTextual {
     return (Respuestas.values()[opcion]);
   }
 
-  void gestionar () {
+  public void gestionar () {
     System.out.println("<<-------------Gestionar---------------");
     int opcion1 = menu ("¿Que numero de gestion inmobiliaria deseas hacer?",
     new ArrayList<> (Arrays.asList("VENDER", "HIPOTECAR", "CANCELAR_HIPOTECA", "CONSTRUIR_CASA", "CONSTRUIR_HOTEL", "TERMINAR")));
@@ -130,7 +130,7 @@ class VistaTextual {
   }
     
 
-  void mostrarSiguienteOperacion(OperacionesJuego operacion) {
+  public void mostrarSiguienteOperacion(OperacionesJuego operacion) {
     System.out.println("<<-------------Operaciones Juego---------------");
 
       System.out.println(operacion);
@@ -138,7 +138,7 @@ class VistaTextual {
   }
 
 
-  void mostrarEventos() {
+  public void mostrarEventos() {
       System.out.println("<<-------------Evento Diario---------------");
       while (Diario.getInstance().eventosPendientes()){
           System.out.println(">> " + Diario.getInstance().leerEvento());
@@ -152,7 +152,7 @@ class VistaTextual {
 
     }
   
-  void actualizarVista(){
+  public void actualizarVista(){
       System.out.println("<<-------------Jugador Actual---------------");
       System.out.println( juegoModel.getJugadorActual().toString() );
       System.out.println("---------------Jugador Actual------------->>\n");

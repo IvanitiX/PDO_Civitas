@@ -6,6 +6,7 @@
 package civitas;
 
 import java.util.ArrayList;
+import GUI.Dado ;
 
 /**
  * @author Miguel Muñoz Molina
@@ -69,7 +70,7 @@ public class Jugador implements Comparable<Jugador> {
         return PrecioLibertad;
     }
 
-    protected String getNombre() {
+    public String getNombre() {
         return nombre;
     }
 
@@ -77,8 +78,12 @@ public class Jugador implements Comparable<Jugador> {
         return numCasillaActual;
     }
 
-    protected float getSaldo() {
+    public float getSaldo() {
         return saldo;
+    }
+    
+    public boolean isEspeculador(){
+        return false;
     }
 
     boolean getPuedeComprar() {

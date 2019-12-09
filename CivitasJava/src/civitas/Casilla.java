@@ -50,7 +50,7 @@ public class Casilla {
     }
     
     
-    String getNombre() {
+    public String getNombre() {
         return nombre;
     }
        
