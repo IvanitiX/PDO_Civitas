@@ -4,6 +4,7 @@
 #Author: Iván Valero Rodríguez
 require_relative "Dado"
 require_relative "titulo_propiedad"
+require_relative "JugadorEspeculador"
 
 module Civitas
   class Jugador
@@ -15,7 +16,7 @@ module Civitas
     @@SaldoInicial = 7500.0
     @@PrecioLibertad = 200.0
     
-    attr_reader :nombre, :numCasillaActual, :saldo, :puedeComprar, :encarcelado, :propiedades
+    attr_reader :nombre, :numCasillaActual, :saldo, :puedeComprar, :encarcelado, :propiedades, :salvoconducto
     
     private_class_method :new
     
@@ -59,6 +60,7 @@ module Civitas
         perderSalvoconducto
       end
       
+      #REVISAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR
       if(!tieneSalvoconducto and !@encarcelado)
         carcel =true
       end
@@ -297,6 +299,14 @@ module Civitas
         end
       end
       return result
+    end
+    
+    def self.nuevoEspeculador(jugador, fianza)
+      
+      especulador = JugadorEspeculador.otro(jugador,fianza)
+      
+      return especulador
+
     end
 
     

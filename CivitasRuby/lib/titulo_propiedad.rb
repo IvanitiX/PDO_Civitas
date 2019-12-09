@@ -11,6 +11,8 @@ class TituloPropiedad
   attr_reader :nombre, :numCasas, :numHoteles,
     :precioCompra, :precioEdificar, :propietario, :hipotecado
   
+  attr_writer :propietario
+  
   def initialize(nombre,alquilerBase,factorRevalorizacion, 
             hipotecaBase,precioCompra,precioEdificar)
           

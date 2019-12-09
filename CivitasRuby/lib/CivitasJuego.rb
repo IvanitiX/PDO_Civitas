@@ -8,7 +8,14 @@ require_relative "titulo_propiedad"
 require_relative "Jugador"
 require_relative "Tablero"
 require_relative "MazoSorpresas"
-require_relative "TipoSorpresa"
+require_relative "SorpresaCarcel"
+require_relative "SorpresaCasaHotel"
+require_relative "SorpresaCasilla"
+require_relative "SorpresaJugador"
+require_relative "SorpresaPagarCobrar"
+require_relative "SorpresaSalirCarcel"
+require_relative "SorpresaEspeculador"
+
 module Civitas
   
   class CivitasJuego
@@ -105,37 +112,38 @@ module Civitas
     private
     
     def inicializarTablero(mazo)
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Calderon de la Barca", 200, 50, 0.1, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Montilla", 300, 60, 0.2, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaSorpresa(mazo,"Sorpresa"))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Platon", 400, 50, 0.0, 300, 100)))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Calderon de la Barca", 200, 50, 0.1, 300, 100)))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Montilla", 300, 60, 0.2, 300, 100)))
+        @tablero.aniadeCasilla(CasillaSorpresa.new(mazo,"Sorpresa"))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Platon", 400, 50, 0.0, 300, 100)))
         @tablero.aniadeJuez
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Ntra.Sra de Tiscar", 200, 70, 0.1, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaImpuesto(200, "Zona azul"))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Jose de Mora", 300, 50, -0.1, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Baza", 400, 60, 0.2, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaDescanso("Bar La Posada"))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Juan de Echevarria", 200, 50, 0.2, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaSorpresa(mazo,"Sorpresa"))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("San Leon", 300, 70, 0.1, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Via Lactea", 400, 80, -0.2, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Sierra Morena", 200, 80, 0.1, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaSorpresa(mazo,"Sorpresa"))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Casillas", 300, 50, 0.2, 300, 100)))
-        @tablero.aniadeCasilla(Casilla.casillaTitulo(TituloPropiedad.new("Francisco Pradilla", 400, 60, 0.0, 300, 100)))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Ntra.Sra de Tiscar", 200, 70, 0.1, 300, 100)))
+        @tablero.aniadeCasilla(CasillaImpuesto.new(200, "Zona azul"))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Jose de Mora", 300, 50, -0.1, 300, 100)))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Baza", 400, 60, 0.2, 300, 100)))
+        @tablero.aniadeCasilla(Casilla.new("Bar La Posada"))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Juan de Echevarria", 200, 50, 0.2, 300, 100)))
+        @tablero.aniadeCasilla(CasillaSorpresa.new(mazo,"Sorpresa"))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("San Leon", 300, 70, 0.1, 300, 100)))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Via Lactea", 400, 80, -0.2, 300, 100)))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Sierra Morena", 200, 80, 0.1, 300, 100)))
+        @tablero.aniadeCasilla(CasillaSorpresa.new(mazo,"Sorpresa"))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Casillas", 300, 50, 0.2, 300, 100)))
+        @tablero.aniadeCasilla(CasillaCalle.new(TituloPropiedad.new("Francisco Pradilla", 400, 60, 0.0, 300, 100)))
     end
     
     def inicializarMazo(tablero)
-        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PAGARCOBRAR, 500, "El Gobierno te ha dado una subvencion por tus propiedades."))
-        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PAGARCOBRAR, -500, "Pagas penalizacion por pasarte de potencia electrica."))
-        @mazo.alMazo(Sorpresa.sorpresaCasilla(TipoSorpresa::IRCASILLA, tablero, 0, "Ve a la salida y cobra antes que nadie (o no)."))
-        @mazo.alMazo(Sorpresa.sorpresaSalirCarcel(TipoSorpresa::SALIRCARCEL, @mazo))
-        @mazo.alMazo(Sorpresa.sorpresaCarcel(TipoSorpresa::IRCARCEL, tablero))
-        @mazo.alMazo(Sorpresa.sorpresaCasilla(TipoSorpresa::IRCASILLA, tablero, 10, "Despues de salir con el runner, ve a La Posada y descansa."))
-        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORCASAHOTEL, 100, "El Gobierno te extiende una transferencia para mejorar tus edificios."))
-        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORCASAHOTEL, -100, "Hacienda te pide bajo pena de prision que pagues tus tributos."))
-        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORJUGADOR, 100, "Es tu santo Como no te han comprado nada, te daran dinero."))
-        @mazo.alMazo(Sorpresa.sorpresaResto(TipoSorpresa::PORJUGADOR, -100, "Le has roto el coche a tus compañeros y debes compensarles."))
+        @mazo.alMazo(SorpresaEspeculador.new(5000, "Te conviertes en especulador"))
+        @mazo.alMazo(SorpresaPagarCobrar.new(500, "El Gobierno te ha dado una subvencion por tus propiedades."))
+        @mazo.alMazo(SorpresaPagarCobrar.new(-500, "Pagas penalizacion por pasarte de potencia electrica."))
+        @mazo.alMazo(SorpresaCasilla.new(tablero, 0, "Ve a la salida y cobra antes que nadie (o no)."))
+        @mazo.alMazo(SorpresaSalirCarcel.new(@mazo))
+        @mazo.alMazo(SorpresaCarcel.new(tablero))
+        @mazo.alMazo(SorpresaCasilla.new(tablero, 10, "Despues de salir con el runner, ve a La Posada y descansa."))
+        @mazo.alMazo(SorpresaCasaHotel.new(100, "El Gobierno te extiende una transferencia para mejorar tus edificios."))
+        @mazo.alMazo(SorpresaCasaHotel.new(-100, "Hacienda te pide bajo pena de prision que pagues tus tributos."))
+        @mazo.alMazo(SorpresaJugador.new(100, "Es tu santo Como no te han comprado nada, te daran dinero."))
+        @mazo.alMazo(SorpresaJugador.new(-100, "Le has roto el coche a tus compañeros y debes compensarles."))
     end
     
     def pasarTurno
@@ -181,7 +189,7 @@ module Civitas
         return operacion
     end
     
-        def comprar()
+    def comprar()
       jugadorActual = getJugadorActual()
       numCasillaActual = jugadorActual.numCasillaActual
       casilla = @tablero.getCasilla(numCasillaActual)

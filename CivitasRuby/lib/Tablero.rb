@@ -4,6 +4,10 @@
 #Author: Iván Valero Rodríguez
 
 require_relative "Casilla"
+require_relative "CasillaCalle"
+require_relative "CasillaImpuesto"
+require_relative "CasillaJuez"
+require_relative "CasillaSorpresa"
 
 module Civitas
   class Tablero
@@ -17,7 +21,7 @@ module Civitas
         @numCasillaCarcel = 1
       end
       @casillas = Array.new()
-      @casillas << Casilla.casillaDescanso("Salida")
+      @casillas << Casilla.new("Salida")
       @porSalida = 0
       @tieneJuez = false
     end
@@ -50,17 +54,17 @@ module Civitas
     
     def aniadeCasilla(casilla)
       if (@casillas.size == @numCasillaCarcel)
-        @casillas << Casilla.casillaDescanso("Carcel")
+        @casillas << Casilla.new("Carcel")
       end
       @casillas << casilla
       if (@casillas.size == @numCasillaCarcel)
-        @casillas << Casilla.casillaDescanso("Carcel")
+        @casillas << Casilla.new("Carcel")
       end
     end
     
     def aniadeJuez
       if(!@tieneJuez)
-        aniadeCasilla(Casilla.casillaJuez(@numCasillaCarcel,"Juez"))
+        aniadeCasilla(CasillaJuez.new(@numCasillaCarcel,"Juez"))
         @tieneJuez = true
       end
     end

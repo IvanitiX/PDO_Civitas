@@ -5,6 +5,8 @@
 
 require_relative 'diario'
 require_relative "Sorpresa"
+
+
 module Civitas
   class MazoSorpresas 
     def init
