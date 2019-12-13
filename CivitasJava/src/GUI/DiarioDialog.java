@@ -20,17 +20,20 @@ public class DiarioDialog extends javax.swing.JDialog {
         super(parent, true);
         initComponents();
         setLocationRelativeTo(null) ;
-        mostrarEventos() ;
+        this.mostrarEventos() ;
     }
     
     public void mostrarEventos(){
-        String eventos = null ;
+        String eventos = "" ;
         while (Diario.getInstance().eventosPendientes())
             eventos += Diario.getInstance().leerEvento() + "\n" ;
-        areaEventos.setText(eventos);
-        areaEventos.setVisible(true);
-        repaint();
-        revalidate() ;
+        
+        if (eventos != ""){
+            areaEventos.setText(eventos);
+            this.setVisible(true);
+            repaint();
+            revalidate() ;
+        }
     }
 
     /**
