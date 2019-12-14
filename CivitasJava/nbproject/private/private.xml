@@ -12,21 +12,14 @@
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/Respuestas.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/GestionDialog.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/civitas/CasillaCalle.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/Controlador.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/civitas/TituloPropiedad.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/CapturaNombres.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/JugadorPanel.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/CivitasView.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/TestP5.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/civitas/Jugador.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/CasillaPanel.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/DiarioDialog.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/civitas/CasillaImpuesto.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/GUI/PropiedadPanel.java</file>
-            <file>file:/home/ivan/NetBeansProjects/CivitasJava/src/civitas/Casilla.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/PDO_Civitas/CivitasJava/src/GUI/TestP5.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/PDO_Civitas/CivitasJava/src/civitas/Jugador.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/PDO_Civitas/CivitasJava/src/GUI/CivitasView.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/PDO_Civitas/CivitasJava/src/GUI/Dado.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/PDO_Civitas/CivitasJava/src/GUI/PropiedadPanel.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/PDO_Civitas/CivitasJava/src/GUI/JugadorPanel.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/PDO_Civitas/CivitasJava/src/GUI/Controlador.java</file>
+            <file>file:/C:/Users/Usuario/Documents/GitHub/PDO_Civitas/CivitasJava/src/civitas/JugadorEspeculador.java</file>
         </group>
     </open-files>
 </project-private>

@@ -8,7 +8,11 @@ import civitas.CivitasJuego ;
 import civitas.Diario;
 import civitas.OperacionesJuego;
 import civitas.SalidasCarcel;
+import java.awt.BorderLayout;
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.util.Scanner;
+import javax.swing.AbstractAction;
 import javax.swing.BorderFactory;
 import javax.swing.JOptionPane;
 import static javax.swing.JOptionPane.YES_NO_OPTION;
@@ -31,8 +35,30 @@ public class CivitasView extends javax.swing.JFrame {
         casillaPanel = new CasillaPanel() ;
         contenedorVistaJugador.add(jugadorPanel) ;
         contenedorCasilla.add(casillaPanel) ;
+        
         repaint() ;
         revalidate() ;
+    }
+    
+    public void pausa(){
+        Jugar.setAction(new AbstractAction() {
+            public void actionPerformed(ActionEvent ae) {
+                synchronized (Jugar) {
+                    Jugar.notify();
+                }
+            }
+        });
+        
+        this.getContentPane().add(Jugar, BorderLayout.CENTER);
+        this.Jugar.setText("Jugar");
+        
+        synchronized(Jugar) {
+        try {
+          Jugar.wait();
+        } catch (InterruptedException ex) {
+          System.out.println("Interrupted");
+        }
+}
     }
     
     public void actualizarVista(){
@@ -42,6 +68,7 @@ public class CivitasView extends javax.swing.JFrame {
         casillaPanel.setVisible(true);
         labelRanking.setVisible(false);
         areaRanking.setVisible(false);
+        Jugar.setVisible(true);
         if (juego.finalDelJuego()){
             areaRanking.setText(juego.ranking().toString()) ;
             labelRanking.setVisible(true);
@@ -118,12 +145,14 @@ public class CivitasView extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         areaRanking = new javax.swing.JTextArea();
         labelRanking = new javax.swing.JLabel();
+        Jugar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(204, 255, 255));
 
-        titulo.setBackground(new java.awt.Color(42, 42, 42));
+        titulo.setBackground(new java.awt.Color(0, 0, 255));
         titulo.setFont(new java.awt.Font("FreeSans", 0, 36)); // NOI18N
-        titulo.setForeground(new java.awt.Color(254, 254, 254));
+        titulo.setForeground(new java.awt.Color(0, 0, 255));
         titulo.setText("CivitasView");
         titulo.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(254, 254, 254), 2, true));
         titulo.setEnabled(false);
@@ -142,6 +171,10 @@ public class CivitasView extends javax.swing.JFrame {
 
         labelRanking.setText("Ranking :");
         labelRanking.setEnabled(false);
+
+        Jugar.setFont(new java.awt.Font("Dialog", 0, 36)); // NOI18N
+        Jugar.setForeground(new java.awt.Color(0, 102, 255));
+        Jugar.setText("jButton1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -166,6 +199,8 @@ public class CivitasView extends javax.swing.JFrame {
                                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 563, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGap(0, 391, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(Jugar, javax.swing.GroupLayout.PREFERRED_SIZE, 365, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(contenedorCasilla, javax.swing.GroupLayout.PREFERRED_SIZE, 353, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                 .addGap(32, 32, 32))
@@ -174,24 +209,30 @@ public class CivitasView extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(titulo)
                     .addGroup(layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(campoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(31, 31, 31)
-                        .addComponent(contenedorCasilla, javax.swing.GroupLayout.PREFERRED_SIZE, 333, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(labelRanking)
-                        .addGap(18, 18, 18)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(titulo)
+                            .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                    .addComponent(campoEstado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(jLabel1))))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                         .addComponent(contenedorVistaJugador, javax.swing.GroupLayout.PREFERRED_SIZE, 525, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(96, 96, 96)))
+                        .addGap(96, 96, 96))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(184, 184, 184)
+                                .addComponent(Jugar, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(contenedorCasilla, javax.swing.GroupLayout.PREFERRED_SIZE, 349, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(labelRanking)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(36, 36, 36))
         );
 
@@ -234,6 +275,7 @@ public class CivitasView extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Jugar;
     private javax.swing.JTextArea areaRanking;
     private javax.swing.JTextField campoEstado;
     private javax.swing.JPanel contenedorCasilla;
