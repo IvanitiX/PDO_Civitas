@@ -45,11 +45,6 @@ public class GestionDialog extends javax.swing.JDialog {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setFocusable(false);
-        addWindowListener(new java.awt.event.WindowAdapter() {
-            public void windowClosing(java.awt.event.WindowEvent evt) {
-                formWindowClosing(evt);
-            }
-        });
 
         jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 24)); // NOI18N
         jLabel1.setText("¡Hora de gestionar!");
@@ -73,22 +68,12 @@ public class GestionDialog extends javax.swing.JDialog {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        listaGestiones.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaGestionesMouseClicked(evt);
-            }
-        });
         jScrollPane1.setViewportView(listaGestiones);
 
         listaPropiedades.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
-        });
-        listaPropiedades.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                listaPropiedadesMouseClicked(evt);
-            }
         });
         jScrollPane2.setViewportView(listaPropiedades);
 
@@ -152,21 +137,6 @@ public class GestionDialog extends javax.swing.JDialog {
         if(gestionElegida != -1)
             dispose() ;
     }//GEN-LAST:event_botonRealizarActionPerformed
-
-    private void listaGestionesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaGestionesMouseClicked
-        // TODO add your handling code here:
-        gestionElegida = listaGestiones.getSelectedIndex() ;
-    }//GEN-LAST:event_listaGestionesMouseClicked
-
-    private void listaPropiedadesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaPropiedadesMouseClicked
-        // TODO add your handling code here:
-        propiedadElegida = listaPropiedades.getSelectedIndex() ;
-    }//GEN-LAST:event_listaPropiedadesMouseClicked
-    // EL Nº 5 INDICA LA OPCIÓN "TERMINAR"
-    private void formWindowClosing(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosing
-        // TODO add your handling code here:
-        gestionElegida = 5 ;
-    }//GEN-LAST:event_formWindowClosing
 
     int getGestion(){
         return gestionElegida ;

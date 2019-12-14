@@ -10,5 +10,5 @@ package GUI;
  * @author Usuario
  */
 public enum Respuestas {
-    SI, NO
+    NO, SI
 }

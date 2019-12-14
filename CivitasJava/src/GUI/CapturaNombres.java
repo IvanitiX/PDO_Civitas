@@ -139,18 +139,13 @@ public class CapturaNombres extends javax.swing.JDialog {
     }//GEN-LAST:event_cancelarActionPerformed
 
     private void jugarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jugarActionPerformed
-
-        if (nombre1.getText().length() != 0)
-            nombres.add (nombre1.getText());
+        nombres.add (nombre1.getText());
         this.dispose();
-        if (nombre2.getText().length() != 0)
-            nombres.add (nombre2.getText());
+        nombres.add (nombre2.getText());
         this.dispose();
-        if (nombre3.getText().length() != 0)
-            nombres.add (nombre3.getText());
+        nombres.add (nombre3.getText());
         this.dispose();
-        if (nombre4.getText().length() != 0)
-            nombres.add (nombre4.getText());
+        nombres.add (nombre4.getText());
         this.dispose();
     }//GEN-LAST:event_jugarActionPerformed
 

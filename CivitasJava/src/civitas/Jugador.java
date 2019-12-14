@@ -341,7 +341,6 @@ public class Jugador implements Comparable<Jugador> {
                 result = titulo.Comprar(this) ;
                 if(result){
                     propiedades.add(titulo) ;
-                    System.out.print("Comprada!");
                     diario.ocurreEvento("El jugador " + getNombre() + " compra la propiedad " + titulo.toString());
                 }
                 puedeComprar = false ;
