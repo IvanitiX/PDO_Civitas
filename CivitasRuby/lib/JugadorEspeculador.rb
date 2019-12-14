@@ -36,7 +36,26 @@ module Civitas
     end
     
     def puedoEdificarHotel(titulo)
-      return titulo.numHoteles < @@HotelesMax*@@factorEspeculador && puedoGastar(3*titulo.precioEdificar)
+      return titulo.numHoteles < @@HotelesMax*@@factorEspeculador && puedoGastar(3*titulo.precioEdificar) && titulo.numCasas >= @@CasasPorHotel
+    end
+    
+    def pagaImpuesto(cantidad)
+       return super(cantidad/2)
+    end
+    
+    def debeSerEncarcelado
+        debeSerEncarceladoClasico = super
+        puedoPagarFianza = puedoGastar(@fianza)
+        if (debeSerEncarceladoClasico && !puedoPagarFianza)
+          return true
+        else
+          @saldo = @saldo - @fianza
+          return false
+        end
+    end
+    
+    def puedoGastar(fianza)
+      super
     end
     
   end

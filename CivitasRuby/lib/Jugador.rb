@@ -204,7 +204,7 @@ module Civitas
     end
     
     def puedoEdificarHotel(titulo)
-      return titulo.numHoteles < @@HotelesMax && puedoGastar(3*titulo.precioEdificar)
+      return titulo.numHoteles < @@HotelesMax && puedoGastar(3*titulo.precioEdificar) && titulo.numCasas >= @@CasasPorHotel
     end
     
     def cantidadCasasHoteles

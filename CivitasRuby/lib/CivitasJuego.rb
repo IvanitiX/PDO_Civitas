@@ -133,7 +133,7 @@ module Civitas
     end
     
     def inicializarMazo(tablero)
-        @mazo.alMazo(SorpresaEspeculador.new(5000, "Te conviertes en especulador"))
+        @mazo.alMazo(SorpresaEspeculador.new(3000, "Te conviertes en especulador"))
         @mazo.alMazo(SorpresaPagarCobrar.new(500, "El Gobierno te ha dado una subvencion por tus propiedades."))
         @mazo.alMazo(SorpresaPagarCobrar.new(-500, "Pagas penalizacion por pasarte de potencia electrica."))
         @mazo.alMazo(SorpresaCasilla.new(tablero, 0, "Ve a la salida y cobra antes que nadie (o no)."))
