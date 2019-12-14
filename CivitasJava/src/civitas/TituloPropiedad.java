@@ -39,7 +39,13 @@ public class TituloPropiedad {
 
     @Override
     public String toString() {
-        return "TituloPropiedad{" + "nombre=" + nombre + ", alquilerBase=" + alquilerBase + ", factorRevalorizacion=" + factorRevalorizacion + ", hipotecaBase=" + hipotecaBase + ", hipotecado=" + hipotecado + ", numCasas=" + numCasas + ", numHoteles=" + numHoteles + ", precioCompra=" + precioCompra + ", precioEdificar=" + precioEdificar + ", propietario=" + propietario + '}' + "\n";
+        String a_devolver = "Nombre=" + nombre + "\nAlquilerBase=" + alquilerBase + "\nFactorRevalorizacion=" + factorRevalorizacion + "\nHipotecaBase=" + hipotecaBase + "\nHipotecado=" + hipotecado + "\nNumCasas=" + numCasas + "\nNumHoteles=" + numHoteles + "\nPrecioCompra=" + precioCompra + "\nPrecioEdificar=" + precioEdificar ;
+        
+        if (tienePropietario())
+            a_devolver += "\nPropietario=" + propietario.getNombre();
+        else
+            a_devolver += "\nPropietario=No tiene";
+        return a_devolver;
     }
     
 
