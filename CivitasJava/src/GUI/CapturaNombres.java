@@ -152,6 +152,9 @@ public class CapturaNombres extends javax.swing.JDialog {
         if (nombre4.getText().length() != 0)
             nombres.add (nombre4.getText());
         this.dispose();
+        if(nombres.isEmpty()){
+            throw new UnsupportedOperationException("Lo siento, tu princesa no está en este castillo. (Oye, ponme un nombre aunque sea, ¿no?)") ;
+        }
     }//GEN-LAST:event_jugarActionPerformed
 
     /**

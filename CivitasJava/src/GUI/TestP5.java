@@ -21,7 +21,7 @@ public class TestP5 {
         // TODO code application logic here
         CivitasView vista = new CivitasView() ;
         Dado.createInstance(vista);
-        Dado.getInstance().setDebug(true);
+        //Dado.getInstance().setDebug(true);
         CapturaNombres nombres = new CapturaNombres(vista,true) ;
         ArrayList<String> lista_nombres = nombres.getNombres() ;
         CivitasJuego juego = new CivitasJuego(lista_nombres) ;

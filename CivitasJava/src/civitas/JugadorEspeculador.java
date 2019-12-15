@@ -47,7 +47,7 @@ public class JugadorEspeculador extends Jugador {
     
     @Override
     boolean puedoEdificarHotel(TituloPropiedad titulo){
-         return titulo.getNumHoteles() < this.getHotelesMax() && puedoGastar(titulo.getPrecioEdificar()) ;
+         return titulo.getNumHoteles() < this.getHotelesMax() && puedoGastar(titulo.getPrecioEdificar()) && titulo.getNumCasas() >= getCasasPorHotel() ;
     }
     
     
